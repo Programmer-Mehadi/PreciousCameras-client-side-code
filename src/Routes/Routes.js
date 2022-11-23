@@ -1,6 +1,8 @@
+import Main from '../Layout/Main.js';
+import Home from '../Pages/Home/Home/Home.js';
+import Login from "../Pages/Login/Login";
+import Signup from "../Pages/Signup/Signup";
 const { createBrowserRouter } = require("react-router-dom");
-const { default: Main } = require("../Layout/Main");
-const { default: Home } = require("../Pages/Home/Home/Home");
 
 const routes = createBrowserRouter([
     {
@@ -9,7 +11,16 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>,                
+                element: <Home></Home>            
+            },
+            {
+                path: '/login',
+                element: <Login></Login>,                
+            }
+            ,
+            {
+                path: '/signup',
+                element: <Signup></Signup>,                
             }
         ]
     }
