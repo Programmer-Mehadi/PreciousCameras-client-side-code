@@ -8,6 +8,7 @@ import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard.js';
 import MyOrders from '../Pages/Dashboard/MyOrders/MyOrders.js';
 import MyProducts from '../Pages/Dashboard/MyProducts/MyProducts.js';
 import ReportedItems from '../Pages/Dashboard/ReportedItems/ReportedItems.js';
+import ErrorPage from '../Pages/ErrorPage/ErrorPage.js';
 import Home from '../Pages/Home/Home/Home.js';
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
@@ -78,7 +79,7 @@ const routes = createBrowserRouter([
     },
     {
         path: '*',
-        element: <h2>Wrong </h2>
+        element: <ErrorPage></ErrorPage>
     }
 ])
 
