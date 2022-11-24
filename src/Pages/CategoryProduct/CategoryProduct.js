@@ -1,11 +1,16 @@
-import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
-import React, { useEffect, useState } from 'react';
+import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
+import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
-import verifyImg from '../../assets/verify.png';
+import { AuthContext } from '../../Contexts/AuthProvider';
+
+
 const CategoryProduct = () => {
+    const { user } = useContext(AuthContext)
     const products = useLoaderData();
     const [categoryName, setCategoryName] = useState('')
+    const [bookingProduct, setBookingProduct] = useState(null);
     useEffect(() => {
         const id = products[0].category;
         fetch('http://localhost:5000/categories')
@@ -18,7 +23,45 @@ const CategoryProduct = () => {
                 })
             })
     }, [products])
-    console.log(products);
+
+    const handleBooking = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const customerName = user?.displayName;
+        const customerEmail = user?.email;
+        const itemName = form.itemName.value;
+        const price = form.price.value;
+        const phoneNumber = form.phoneNumber.value;
+        const location = form.location.value;
+        const itemId = bookingProduct._id;
+        const bookingData = {
+            customerName,
+            customerEmail,
+            itemId,
+            itemName,
+            price,
+            phoneNumber,
+            location
+        }
+        fetch('http://localhost:5000/addbooking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(bookingData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Item Book Comfirm Successfully!');
+                    setBookingProduct(null);
+                }
+            })
+
+    }
+
     return (
         <div className='px-5 w-[99%] mx-auto py-14'>
             <h2 className='text-center text-secondary text-2xl font-bold pb-4' > {categoryName}</h2>
@@ -30,10 +73,10 @@ const CategoryProduct = () => {
                             <figure className='rounded'><img className='border h-[20rem] w-full rounded' src={product.image} alt="Shoes" /></figure>
                             <div className="card-body  ">
                                 <h2 className="card-title text-primary">
-                                    {product.name} 
+                                    {product.name}
                                 </h2>
                                 <p className="text-xl font-semibold flex items-center">{product.userName}
-                                { product.verify === true &&  <FaCheckCircle className="text-blue-600 text-xl ml-1"/> }
+                                    {product.verify === true && <FaCheckCircle className="text-blue-600 text-xl ml-1" />}
                                 </p>
                                 <p>Published: {product.date}</p>
                                 <div className="overflow-x-auto  text-center  grid grid-cols-1">
@@ -72,15 +115,75 @@ const CategoryProduct = () => {
                                 </div>
 
                                 <div className="card-actions justify-center">
-                                    <div className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></div>
+
+                                    <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
 
                                 </div>
                             </div>
                         </div>
-
                     )
                 }
             </div>
+
+            {
+                bookingProduct && <div className="modal-section">
+                    <input type="checkbox" id="my-modal-3" className="modal-toggle h-auto" />
+                    <div className="modal h-auto">
+                        <div className="modal-box relative h-auto">
+                            <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                            <h3 className="text-lg font-bold">{bookingProduct?.name}</h3>
+                            <form className="h-auto" onSubmit={handleBooking}>
+                                <div className="hero-content flex-col lg:flex-row-reverse">
+                                    <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
+                                        <div className="card-body">
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Name</span>
+                                                </label>
+                                                <input name="customerName" value={user?.displayName} type="text" placeholder="name" className="input input-bordered" readOnly />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Email</span>
+                                                </label>
+                                                <input name='customerEmail' value={user?.email} type="email" placeholder="email" className="input input-bordered" />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Item name</span>
+                                                </label>
+                                                <input name="itemName" value={bookingProduct?.name} type="text" placeholder="item name" className="input input-bordered" />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Price</span>
+                                                </label>
+                                                <input name="price" value={bookingProduct?.resalePrice} type="text" placeholder="price" className="input input-bordered" />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Phone number</span>
+                                                </label>
+                                                <input name="phoneNumber" type="text" placeholder="phone number" className="input input-bordered" required />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Meeting location</span>
+                                                </label>
+                                                <input name="location" type="text" placeholder="meeting location" className="input input-bordered" required />
+                                            </div>
+
+                                            <div className="form-control mt-6">
+                                                <input type="submit" className="btn btn-primary" value="Submit" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
 
         </div>
     );
