@@ -28,10 +28,11 @@ const CategoryProduct = () => {
                         <div key={product._id} className="card bg-slate-50 ">
                             <figure className='rounded'><img className='border h-[20rem] w-full rounded' src={product.image} alt="Shoes" /></figure>
                             <div className="card-body  ">
-                                <h2 className="card-title">
+                                <h2 className="card-title text-primary">
                                     {product.name}
                                 </h2>
-                                <p>Published: {product.date}</p>                            
+                                <p className="text-xl font-semibold">{product.userName}</p>
+                                <p>Published: {product.date}</p>
                                 <div className="overflow-x-auto  text-center  grid grid-cols-1">
                                     <div className="grid grid-cols-2 ">
                                         <p className="border-2">Resale Price : </p>
@@ -55,7 +56,7 @@ const CategoryProduct = () => {
 
                                     <div className="grid grid-cols-2">
                                         <p className="border-2">
-                                            phone : </p>
+                                            Phone : </p>
                                         <p className="border-2 border-l-0">{product.phone}</p>
                                     </div>
                                     <div className="grid grid-cols-2">

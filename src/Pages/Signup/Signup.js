@@ -9,7 +9,7 @@ import Loading from "../Shared/Loading/Loading";
 import getToken from '../../Hooks/useToken.js';
 
 const Signup = () => {
-    const [thisLoading,setThisLoading]=useState(false)
+    const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, createUser, googleSignupAndLogin, updateUserProfile } = useContext(AuthContext);
     useEffect(() => {
@@ -21,7 +21,7 @@ const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
     const imageHostKey = process.env.REACT_APP_imgbb_key;
-    
+
     const googleSignin = () => {
         // setThisLoading(true);
         googleSignupAndLogin()
@@ -74,6 +74,7 @@ const Signup = () => {
                             imgUrl = imgbb.data.display_url;
                             updateUserProfile(data.name, imgUrl)
                                 .then(res => {
+                                    toast.success('Create user successfully!');
                                     const userData = {
                                         name: data.name,
                                         email: data.email,
@@ -89,7 +90,7 @@ const Signup = () => {
                                         .then(res => res.json())
                                         .then(data => {
                                             if (data.acknowledged === true) {
-                                                toast.success('Create user successfully!');
+
                                                 getToken(userData?.email);
                                                 navigate('/')
                                             }
@@ -112,7 +113,7 @@ const Signup = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse w-[99%] mx-auto">
                     <div className="card flex-shrink-0  w-[98%] mx-auto max-w-[500px] shadow-2xl bg-base-100">
                         {
-                            thisLoading  ? <Loading/> : ''
+                            thisLoading ? <Loading /> : ''
                         }
                         <form className="card-body" onSubmit={handleSubmit(handleSignup)}>
                             <h2 className='text-3xl text-center font-bold'>Sign up</h2>
