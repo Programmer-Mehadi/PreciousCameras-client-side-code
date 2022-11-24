@@ -1,9 +1,97 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const AllSellers = () => {
+    const { user, deleteUserData } = useContext(AuthContext);
+    const [sellers, setSellers] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/allsellers/${user?.email}`, {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setSellers(data))
+    }, [sellers])
+    const deleteUser = (id) => {
+        fetch(`http://localhost:5000/userDelete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    deleteUserData(user)
+                        .then(res => {
+                            console.log(res);
+                            toast.success('Delete successfully!');
+                        })
+                        .then(error => console.log(error))
+                }
+            })
+    }
+    const verifyUser = (id) => {
+        fetch(`http://localhost:5000/userverify/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {                    
+                    toast.success('Update verify successfully!');      
+                }
+            })
+    }
     return (
         <div>
-            All Sellers
+            <h2 className="text-xl font-bold text-primary text-center py-4">All Sellers</h2>
+            {
+                sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers found.</h2>
+            }
+            {
+                sellers.length > 0 && <div className="overflow-x-auto text-secondary w-[98%] mx-auto mb-2">
+                    <table className="table table-zebra w-full rounded-none">
+
+                        <thead className='rounded-none'>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Type</th>
+                                <th>Verify</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                sellers.map((seller, i) =>
+                                    <tr key={seller._id}>
+                                        <th>{i + 1}</th>
+                                        <td>{seller.name}</td>
+                                        <td>{seller.email}</td>
+                                        <td>{seller.type}</td>
+                                        <td>{
+                                            !seller.verify && <button onClick={() => verifyUser(seller._id)} className='btn hover:bg-green-400 outline-green-300 btn-sm bg-green-300 text-green-800'>Verify</button>
+                                        }</td>
+                                        <td><button onClick={() => deleteUser(seller._id)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Delete</button></td>
+                                    </tr>
+                                )
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+
         </div>
     );
 };

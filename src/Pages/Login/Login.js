@@ -103,8 +103,8 @@ const Login = () => {
                                 <h2>Don't have an account?<Link to='/signup' className='font-semibold ml-1'>Signup</Link></h2>
                             </div>
                             <div className='mt-3'>
-                                <p onClick={googleSignin} className="btn btn-primary text-white w-full flex gap-2">
-                                    <FcGoogle className='text-xl' />    <span>Continue with Google</span></p>
+                                <p onClick={googleSignin} className="btn btn-primary w-full flex gap-2 text-black">
+                                    <FcGoogle className='text-xl bg-white rounded-3xl' />    <span>Continue with Google</span></p>
                             </div>
                         </form>
                     </div>
