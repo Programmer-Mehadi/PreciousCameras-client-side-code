@@ -5,6 +5,7 @@ import MyOrders from '../Pages/Dashboard/MyOrders/MyOrders.js';
 import Home from '../Pages/Home/Home/Home.js';
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoutes from './PrivateRoutes.js';
 const { createBrowserRouter } = require("react-router-dom");
 
 const routes = createBrowserRouter([
@@ -14,30 +15,30 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>            
+                element: <Home></Home>
             },
             {
                 path: '/login',
-                element: <Login></Login>,                
+                element: <Login></Login>,
             }
             ,
             {
                 path: '/signup',
-                element: <Signup></Signup>,                
+                element: <Signup></Signup>,
             }
         ]
     },
     {
         path: '/dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
         children: [
             {
                 path: '/dashboard',
-                element:<Dashboard></Dashboard>
+                element: <Dashboard></Dashboard>
             },
             {
                 path: '/dashboard/myorders',
-                element:<MyOrders></MyOrders>
+                element: <MyOrders></MyOrders>
             }
         ]
     }
