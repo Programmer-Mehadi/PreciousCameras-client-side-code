@@ -1,11 +1,20 @@
 import DashboardLayout from '../Layout/DashboardLayout.js';
 import Main from '../Layout/Main.js';
+import CategoryProduct from '../Pages/CategoryProduct/CategoryProduct.js';
+import AddProduct from '../Pages/Dashboard/AddProduct/AddProduct.js';
+import AllBuyers from '../Pages/Dashboard/AllBuyers/AllBuyers.js';
+import AllSellers from '../Pages/Dashboard/AllSellers/AllSellers.js';
 import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard.js';
 import MyOrders from '../Pages/Dashboard/MyOrders/MyOrders.js';
+import MyProducts from '../Pages/Dashboard/MyProducts/MyProducts.js';
+import ReportedItems from '../Pages/Dashboard/ReportedItems/ReportedItems.js';
 import Home from '../Pages/Home/Home/Home.js';
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
+import AdminRoute from './AdminRoute.js';
+import BuyerRoute from './BuyerRoute.js';
 import PrivateRoutes from './PrivateRoutes.js';
+import SellerRoute from './SellerRoute.js';
 const { createBrowserRouter } = require("react-router-dom");
 
 const routes = createBrowserRouter([
@@ -25,6 +34,11 @@ const routes = createBrowserRouter([
             {
                 path: '/signup',
                 element: <Signup></Signup>,
+            },
+            {
+                path: '/category/:id',
+                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+                element: <CategoryProduct></CategoryProduct>
             }
         ]
     },
@@ -38,9 +52,33 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/dashboard/myorders',
-                element: <MyOrders></MyOrders>
+                element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
+            },
+            {
+                path: '/dashboard/allbuyers',
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
+            },
+            {
+                path: '/dashboard/allsellers',
+                element: <AdminRoute> <AllSellers></AllSellers></AdminRoute>
+            },
+            {
+                path: '/dashboard/reporteditems',
+                element: <AdminRoute><ReportedItems></ReportedItems></AdminRoute>
+            },
+            {
+                path: '/dashboard/myproducts',
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
+            },
+            {
+                path: '/dashboard/addproduct',
+                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <h2>Wrong </h2>
     }
 ])
 

@@ -1,19 +1,15 @@
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import getToken from "../../Hooks/useToken";
 import Loading from "../Shared/Loading/Loading";
 const Login = () => {
     const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, googleSignupAndLogin, signIn } = useContext(AuthContext);
-    useEffect(() => {
-        if (user) {
-            return navigate('/')
-        }
-    }, [user])
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
@@ -21,8 +17,8 @@ const Login = () => {
         googleSignupAndLogin()
             .then(result => {
                 const userData = {
-                    name: user.displayName,
-                    email: user.email,
+                    name: result?.user?.displayName,
+                    email: result?.user?.email,
                     type: "Buyer"
                 }
                 fetch(`http://localhost:5000/addusers`, {
@@ -35,8 +31,9 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.acknowledged === true) {
+                            getToken(userData?.email);
                             toast.success('Signin successfully!');
-                            setThisLoading(false);
+                            setThisLoading(false);                             
                             navigate('/');
                         }
                     })
@@ -52,6 +49,7 @@ const Login = () => {
         signIn(data.email, data.password)
             .then((result) => {
                 console.log(result);
+                getToken(result?.user?.email);
                 toast.success("Login successfully!")
                 setThisLoading(false);
             })

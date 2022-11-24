@@ -5,6 +5,9 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import Loading from "../Shared/Loading/Loading";
+
+import getToken from '../../Hooks/useToken.js';
+
 const Signup = () => {
     const [thisLoading,setThisLoading]=useState(false)
     const navigate = useNavigate();
@@ -40,7 +43,7 @@ const Signup = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.acknowledged === true) {
-                            
+                            getToken(userData?.email);
                             setThisLoading(false);
                             navigate('/');
                         }
@@ -87,6 +90,7 @@ const Signup = () => {
                                         .then(data => {
                                             if (data.acknowledged === true) {
                                                 toast.success('Create user successfully!');
+                                                getToken(userData?.email);
                                                 navigate('/')
                                             }
                                         })
