@@ -17,10 +17,7 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
-    const imageHostKey = process.env.REACT_APP_imgbb_key;
-
     const googleSignin = () => {
-
         googleSignupAndLogin()
             .then(result => {
                 const userData = {
