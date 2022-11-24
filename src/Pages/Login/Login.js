@@ -86,7 +86,7 @@ const Login = () => {
                                     required: "Password is required", minLength: 6
                                 })} />
                                 {
-                                    errors.password && <p className='text-red-500 my-1'>{errors.password.message}</p>
+                                    errors.password && <p className='text-red-500 my-1'>{errors.password.message}*</p>
                                 }
                                 {errors.password && errors.password.type === "minLength" && <p className='text-red-500 my-1'>Password length atleast 6 characters.</p>}
                                 <label className="label">

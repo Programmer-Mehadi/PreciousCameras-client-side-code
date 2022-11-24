@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
-
 const AddProduct = () => {
     const [thisLoading, setThisLoading] = useState(false)
     const [categories, setCategories] = useState([])
@@ -35,6 +34,7 @@ const AddProduct = () => {
 
     const handleAdd = (data) => {
         const date = formatDate(new Date());
+        data['userName'] = user?.displayName;
         data['date'] = date;
         data['email'] = user?.email;
         setThisLoading(true);
