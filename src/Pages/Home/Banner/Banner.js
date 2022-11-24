@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowAltCircleRight } from "@react-icons/all-files/fa/FaArrowAltCircleRight";
+import { FaArrowRight  } from "@react-icons/all-files/fa/FaArrowRight";
 
 const Banner = () => {
     return (
@@ -9,7 +9,7 @@ const Banner = () => {
                 <div className="max-w-lg">
                     <h1 className="mb-5 text-5xl font-bold text-primary">Inspire, Explore, Create & Showcase.</h1>
                     <p className="mb-5">Turn your old gear into new possibilities. Sell Your Used Camera Gear, Lenses And Accessories At Prices You Can Feel Good About.</p>
-                    <button className="btn btn-primary rounded-3xl">Order Now <FaArrowAltCircleRight className='ml-2 text-xl'/> </button>
+                    <button className="btn btn-primary rounded-3xl font-bold px-7">Order Now<FaArrowRight className='ml-2 text-md'/> </button>
                 </div>
             </div>
         </div>

@@ -12,7 +12,10 @@ const Navbar = () => {
     const navbar = <>
         <li><Link to='/'>Home</Link></li>
         {
-            user ? <li><Link onClick={logOut}>Logout</Link></li>
+            user ? <>
+                <li><Link to='/dashboard'>Dashboard</Link></li>
+                <li><Link onClick={logOut}>Logout</Link></li>
+            </>
                 :
                 <>
                     <li><Link to='/login'>Login</Link></li>
@@ -24,9 +27,10 @@ const Navbar = () => {
         <div className='bg-secondary'>
             <div className="navbar  text-white w-[99%] mx-auto">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <a className="btn btn-ghost normal-case text-xl">PreciousCameras</a>
-                    </div>
+                    
+                    <label htmlFor="drawer" className="pl-2  text-white lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg></label>
+                    <a className="btn btn-ghost normal-case text-xl ">PreciousCameras</a>
+
                 </div>
                 <div className="navbar-end ">
                     <ul className='menu menu-horizontal p-0 hidden lg:flex'>{navbar}</ul>

@@ -23,11 +23,13 @@ const Signup = () => {
         // setThisLoading(true);
         googleSignupAndLogin()
             .then(result => {
+                toast.success('Signin successfully!');
                 const userData = {
-                    name: user.displayName,
-                    email: user.email,
+                    name: result.user?.displayName,
+                    email: result.user?.email,
                     type: "Buyer"
                 }
+                console.log(userData);
                 fetch(`http://localhost:5000/addusers`, {
                     method: 'POST',
                     headers: {
@@ -38,7 +40,7 @@ const Signup = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.acknowledged === true) {
-                            toast.success('Signin successfully!');
+                            
                             setThisLoading(false);
                             navigate('/');
                         }
@@ -178,8 +180,8 @@ const Signup = () => {
                                 <h2>Already have an account?<Link to='/login' className='font-semibold ml-1'>Login</Link></h2>
                             </div>
                             <div className='mt-3'>
-                                <p onClick={googleSignin} className="btn btn-primary text-white w-full flex gap-2">
-                                    <FcGoogle className='text-xl' />    <span>Continue with Google</span></p>
+                                <p onClick={googleSignin} className="btn btn-primary text-secondary w-full flex gap-2">
+                                    <FcGoogle className='text-xl bg-white rounded-full' />    <span>Continue with Google</span></p>
                             </div>
                         </form>
                     </div>
