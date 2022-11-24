@@ -43,7 +43,7 @@ const DashboardLayout = () => {
                         <ul className="menu  w-80 bg-secondary  text-white">
                             {currentUser !== null && currentUser?.isAdmin && adminUl}
                             { currentUser !== null && currentUser?.type === 'Seller' && currentUser?.isAdmin === false &&   sellerUl}
-                            { currentUser !== null && currentUser?.type === 'Buyer' && buyerUl}
+                            { currentUser !== null && currentUser?.type === 'Buyer' && currentUser?.isAdmin === false && buyerUl}
 
                         </ul>
 

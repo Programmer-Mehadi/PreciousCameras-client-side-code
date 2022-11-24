@@ -1,5 +1,5 @@
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,11 +12,7 @@ const Signup = () => {
     const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, createUser, googleSignupAndLogin, updateUserProfile } = useContext(AuthContext);
-    useEffect(() => {
-        if (user) {
-            return navigate('/')
-        }
-    }, [user])
+     
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");

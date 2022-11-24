@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+
 
 const AllBuyers = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user,deleteUserData } = useContext(AuthContext);
     const [buyers, setBuyers] = useState([]);
 
     useEffect(() => {
@@ -27,7 +29,14 @@ const AllBuyers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log('Delete')
+                if (data.deletedCount > 0) {
+                    deleteUserData(user)
+                        .then(res => {
+                            console.log(res);
+                            toast.success('Delete successfully!');
+                        })
+                        .then(error => console.log(error))
+                }
             })
     }
 
@@ -54,7 +63,7 @@ const AllBuyers = () => {
 
                             {
                                 buyers.map((buyer, i) =>
-                                    <tr>
+                                    <tr key={buyer._id}>
                                         <th>{i + 1}</th>
                                         <td>{buyer.name}</td>
                                         <td>{buyer.email}</td>

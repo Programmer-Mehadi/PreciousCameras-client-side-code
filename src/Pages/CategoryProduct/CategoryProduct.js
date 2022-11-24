@@ -1,7 +1,8 @@
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
+import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-
+import verifyImg from '../../assets/verify.png';
 const CategoryProduct = () => {
     const products = useLoaderData();
     const [categoryName, setCategoryName] = useState('')
@@ -29,9 +30,11 @@ const CategoryProduct = () => {
                             <figure className='rounded'><img className='border h-[20rem] w-full rounded' src={product.image} alt="Shoes" /></figure>
                             <div className="card-body  ">
                                 <h2 className="card-title text-primary">
-                                    {product.name}
+                                    {product.name} 
                                 </h2>
-                                <p className="text-xl font-semibold">{product.userName}</p>
+                                <p className="text-xl font-semibold flex items-center">{product.userName}
+                                { product.verify === true &&  <FaCheckCircle className="text-blue-600 text-xl ml-1"/> }
+                                </p>
                                 <p>Published: {product.date}</p>
                                 <div className="overflow-x-auto  text-center  grid grid-cols-1">
                                     <div className="grid grid-cols-2 ">
