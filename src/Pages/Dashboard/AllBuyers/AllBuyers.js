@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 
 const AllBuyers = () => {
 
-    const { user,deleteUserData } = useContext(AuthContext);
-    const [buyers, setBuyers] = useState([]);
+    const { user, deleteUserData } = useContext(AuthContext);
+    const [buyers, setBuyers] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:5000/allbuyers/${user?.email}`, {
@@ -40,11 +41,15 @@ const AllBuyers = () => {
             })
     }
 
+    if (!buyers) {
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <h2 className="text-xl font-bold text-primary text-center py-4">All Buyers</h2>
             {
-                buyers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Buyers found.</h2>
+                buyers && buyers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Buyers found.</h2>
             }
             {
                 buyers.length > 0 && <div className="overflow-x-auto text-secondary w-[99%] mx-auto mb-2">

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
     const { user, deleteUserData } = useContext(AuthContext);
-    const [sellers, setSellers] = useState([]);
+    const [sellers, setSellers] = useState(null);
     useEffect(() => {
         fetch(`http://localhost:5000/allsellers/${user?.email}`, {
             headers: {
@@ -50,11 +51,14 @@ const AllSellers = () => {
                 }
             })
     }
+    if (!sellers) {
+        return <Loading></Loading>
+    }
     return (
         <div>
             <h2 className="text-xl font-bold text-primary text-center py-4">All Sellers</h2>
             {
-                sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers found.</h2>
+               sellers && sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers found.</h2>
             }
             {
                 sellers.length > 0 && <div className="overflow-x-auto text-secondary w-[98%] mx-auto mb-2">

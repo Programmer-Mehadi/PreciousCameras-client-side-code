@@ -1,13 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../../Shared/Loading/Loading';
 
 const ProductCategories = () => {
-    const { data: categories = [], isLoading, refetch } = useQuery({
+    const { data: categories = null, isLoading, refetch } = useQuery({
         queryKey: ['categories'],
         queryFn: () => fetch(`http://localhost:5000/categories`)
             .then(res => res.json())
     })
+
+    if (!categories ) {
+        console.log('loading');
+        return <Loading></Loading>
+    }
+
     return (
         <div>
             <h2 className="text-2xl font-bold text-center p-14">All Categories</h2>

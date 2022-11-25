@@ -10,7 +10,10 @@ const DashboardLayout = () => {
     useEffect(() => {
         fetch(`http://localhost:5000/users/${user?.email}`)
             .then(res => res.json())
-            .then(data => setCurentUser(data))
+            .then(data => {
+                setCurentUser(data);
+                
+            })
     }, [user])
 
     const adminUl = <>
@@ -36,7 +39,6 @@ const DashboardLayout = () => {
                     <input id="drawer" type="checkbox" className="drawer-toggle" />
                     <div className="drawer-content flex flex-col bg-secondary rounded text-white">
                         <Outlet></Outlet>
-
                     </div>
                     <div className="drawer-side bg-secondary rounded">
                         <label htmlFor="drawer" className="drawer-overlay"></label>

@@ -12,7 +12,7 @@ const Signup = () => {
     const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, createUser, googleSignupAndLogin, updateUserProfile } = useContext(AuthContext);
-     
+
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
@@ -46,7 +46,7 @@ const Signup = () => {
                     })
             })
             .then(error => {
-                console.log(error);
+          
                 setError(error.code);
                 setThisLoading(false);
             })
@@ -86,7 +86,6 @@ const Signup = () => {
                                         .then(res => res.json())
                                         .then(data => {
                                             if (data.acknowledged === true) {
-
                                                 getToken(userData?.email);
                                                 navigate('/')
                                             }

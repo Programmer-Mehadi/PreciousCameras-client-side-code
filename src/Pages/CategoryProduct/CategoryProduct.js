@@ -53,7 +53,6 @@ const CategoryProduct = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.acknowledged) {
                     toast.success('Item Book Comfirm Successfully!');
                     setBookingProduct(null);

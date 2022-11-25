@@ -44,7 +44,6 @@ const Login = () => {
                     })
             })
             .then(error => {
-                console.log(error);
                 setError(error.code);
                 setThisLoading(false);
             })
@@ -53,7 +52,6 @@ const Login = () => {
         setThisLoading(true);
         signIn(data.email, data.password)
             .then((result) => {
-                console.log(result);
                 getToken(result?.user?.email);
                 toast.success("Login successfully!")
                 setThisLoading(false);
