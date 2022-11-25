@@ -76,6 +76,29 @@ const CategoryProduct = () => {
 
     }
 
+    const reportProduct = (product) => {
+        const data = { itemId: product?._id, userEmail: user?.email, userName: user?.displayName };
+        fetch(`http://localhost:5000/reporttoadmin/${product?._id}`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data?.ownStatus) {
+                    toast.success(data.ownStatus)
+                }
+                else {
+                    toast.success('Successfully reported!')
+                }
+            })
+    }
+
+
     return (
         <div className='px-5 w-[99%] mx-auto py-14'>
             <h2 className='text-center text-secondary text-2xl font-bold pb-4' > {categoryName}</h2>
@@ -133,9 +156,10 @@ const CategoryProduct = () => {
                                 </div>
 
                                 <div className="card-actions justify-center">
-
                                     <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
-
+                                </div>
+                                <div className="card-actions justify-center">
+                                    <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
                                 </div>
                             </div>
                         </div>

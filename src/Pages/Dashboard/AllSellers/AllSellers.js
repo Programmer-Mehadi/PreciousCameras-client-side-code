@@ -53,7 +53,7 @@ const AllSellers = () => {
         <div>
             <h2 className="text-xl font-bold text-primary text-center py-4">All Sellers</h2>
             {
-               sellers && sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers found.</h2>
+               sellers && sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers Found.</h2>
             }
             {
                 sellers.length > 0 && <div className="overflow-x-auto text-secondary w-[98%] mx-auto mb-2">

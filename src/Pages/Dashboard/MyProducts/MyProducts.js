@@ -67,7 +67,7 @@ const MyProducts = () => {
                                     <th></th>
                                     <th>Image</th>
                                     <th >Title</th>
-                                    <th>Price</th>
+                                        <th>Price {  }</th>
                                     <th>Advertise</th>
                                     <th>Delete</th>
                                 </tr>
@@ -83,7 +83,7 @@ const MyProducts = () => {
                                             {
                                                 product?.salesStatus === 'available' && product?.advertise === 'no' &&
                                                 <td>
-                                                    <button onClick={()=>makeAdvertise(product._id)} className='btn hover:bg-blue-400 outline-blue-300 btn-sm bg-blue-300 text-blue-800'>Make Advertise</button>
+                                                    <button onClick={() => makeAdvertise(product._id)} className='btn hover:bg-blue-400 outline-blue-300 btn-sm bg-blue-300 text-blue-800'>Make Advertise</button>
                                                 </td>
                                             }
                                             {
