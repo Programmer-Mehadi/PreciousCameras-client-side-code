@@ -29,7 +29,7 @@ const DashboardLayout = () => {
     </>;
 
     const sellerUl = <>
-        <li className='border-b border-slate-600'><Link to='/dashboard/addproduct'>Add a product</Link></li>
+        <li className='border-b border-slate-600'><Link to='/dashboard/addproduct'>Add a Product</Link></li>
         <li className='border-b border-slate-600'><Link to='/dashboard/myproducts'>My Products</Link></li>
 
     </>
@@ -37,14 +37,14 @@ const DashboardLayout = () => {
         <div className=''>
             <Navbar></Navbar>
             <div className='w-[99%] mx-auto px-5 my-6'>
-                <div className="drawer drawer-mobile gap-4 h-auto">
+                <div className="drawer drawer-mobile gap-4 h-auto ">
                     <input id="drawer" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content flex flex-col bg-secondary rounded text-white">
+                    <div className="drawer-content flex flex-col bg-secondary rounded text-white shadow">
                         <Outlet></Outlet>
                     </div>
-                    <div className="drawer-side bg-secondary rounded h-fit">
+                    <div className="drawer-side bg-secondary rounded h-fit md:w-[300px]  ">
                         <label htmlFor="drawer" className="drawer-overlay"></label>
-                        <ul className="menu  w-80 bg-secondary  text-white">
+                        <ul className="menu h-[200px]  md:w-[300px] lg:w-full bg-primary  text-black font-semibold shadow">
                             {currentUser !== null && currentUser?.isAdmin && adminUl}
                             { currentUser !== null && currentUser?.type === 'Seller' && currentUser?.isAdmin === false &&   sellerUl}
                             { currentUser !== null && currentUser?.type === 'Buyer' && currentUser?.isAdmin === false && buyerUl}
