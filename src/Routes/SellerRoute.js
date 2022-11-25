@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 import useSeller from '../Hooks/useSeller';
+import Loading from '../Pages/Shared/Loading/Loading';
 
 
 
@@ -11,7 +12,7 @@ const SellerRoute = ({ children }) => {
     const [isSeller, isSellerLoading] = useSeller(user?.email);
     const location = useLocation();
     if (loading || isSellerLoading) {
-        return <div className='flex justify-center'><progress className=" mt-14 mx-auto progress progress-info w-56" ></progress></div>
+        return  <Loading></Loading>
     }
     if (user && isSeller === true) {
         return children;

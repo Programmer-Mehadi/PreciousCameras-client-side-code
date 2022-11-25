@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 
 import useAdmin from '../Hooks/useAdmin';
+import Loading from '../Pages/Shared/Loading/Loading';
 
 
 const AdminRoute = ({ children }) => {
@@ -11,7 +12,7 @@ const AdminRoute = ({ children }) => {
     const [isAdmin, isAdminLoading] = useAdmin(user?.email);
     const location = useLocation();
     if (loading || isAdminLoading) {
-        return <div className='flex justify-center'><progress className=" mt-14 mx-auto progress progress-info w-56" ></progress></div>
+        return <Loading></Loading>
     }
     if (user && isAdmin === true) {
         return children;

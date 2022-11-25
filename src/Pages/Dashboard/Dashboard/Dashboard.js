@@ -41,7 +41,7 @@ const Dashboard = () => {
     }, [user])
 
     return (
-        <div className='w-[99%] mx-auto px-5'>
+        <div className='w-[99%] mx-auto'>
             <Loading></Loading>
         </div>
     );

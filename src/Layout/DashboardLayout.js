@@ -40,7 +40,7 @@ const DashboardLayout = () => {
                     <div className="drawer-content flex flex-col bg-secondary rounded text-white">
                         <Outlet></Outlet>
                     </div>
-                    <div className="drawer-side bg-secondary rounded">
+                    <div className="drawer-side bg-secondary rounded h-fit">
                         <label htmlFor="drawer" className="drawer-overlay"></label>
                         <ul className="menu  w-80 bg-secondary  text-white">
                             {currentUser !== null && currentUser?.isAdmin && adminUl}

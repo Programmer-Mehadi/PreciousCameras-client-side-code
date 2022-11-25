@@ -9,19 +9,27 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 const CategoryProduct = () => {
     const { user } = useContext(AuthContext)
     const products = useLoaderData();
+
     const [categoryName, setCategoryName] = useState('')
     const [bookingProduct, setBookingProduct] = useState(null);
     useEffect(() => {
-        const id = products[0].category;
-        fetch('http://localhost:5000/categories')
-            .then(res => res.json())
-            .then(data => {
-                data.map(d => {
-                    if (d._id === id) {
-                        setCategoryName(d.name);
-                    }
+
+        if ((products?.name)?.length > 0) {
+            setCategoryName(products?.name);
+        }
+        else {
+            const id = products[0]?.category;
+            fetch('http://localhost:5000/categories')
+                .then(res => res.json())
+                .then(data => {
+                    data.map(d => {
+                        if (d._id === id) {
+                            setCategoryName(d.name);
+                        }
+                    })
                 })
-            })
+        }
+
     }, [products])
 
     const handleBooking = (event) => {
@@ -34,11 +42,13 @@ const CategoryProduct = () => {
         const phoneNumber = form.phoneNumber.value;
         const location = form.location.value;
         const itemId = bookingProduct._id;
+        const itemImg = bookingProduct.image;
         const bookingData = {
             customerName,
             customerEmail,
             itemId,
             itemName,
+            itemImg,
             price,
             phoneNumber,
             location
@@ -64,10 +74,14 @@ const CategoryProduct = () => {
     return (
         <div className='px-5 w-[99%] mx-auto py-14'>
             <h2 className='text-center text-secondary text-2xl font-bold pb-4' > {categoryName}</h2>
-            <h2 className='text-center text-primary text-2xl font-bold' >Products found : {products.length}</h2>
+            {
+                products?.name ? <h2 className='text-center text-primary text-2xl font-bold' >Products found : 0</h2> :
+                    <h2 className='text-center text-primary text-2xl font-bold' >Products found : {products?.length}</h2>
+            }
+
             <div className='py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
-                    products.map(product =>
+                    !products?.name && products.map(product =>
                         <div key={product._id} className="card bg-slate-50 ">
                             <figure className='rounded'><img className='border h-[20rem] w-full rounded' src={product.image} alt="Shoes" /></figure>
                             <div className="card-body  ">

@@ -6,7 +6,7 @@ import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
 
-    const { user, deleteUserData } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [buyers, setBuyers] = useState(null);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const AllBuyers = () => {
     }, [buyers])
 
     const deleteUser = (id) => {
-        fetch(`http://localhost:5000/userDelete/${id}`, {
+        fetch(`http://localhost:5000/userdelete/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -31,12 +31,7 @@ const AllBuyers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    deleteUserData(user)
-                        .then(res => {
-                            console.log(res);
-                            toast.success('Delete successfully!');
-                        })
-                        .then(error => console.log(error))
+                    toast.success('Delete successfully!');
                 }
             })
     }

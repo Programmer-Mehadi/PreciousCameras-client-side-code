@@ -4,7 +4,7 @@ import { AuthContext } from '../../../Contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
-    const { user, deleteUserData } = useContext(AuthContext);
+    const { user} = useContext(AuthContext);
     const [sellers, setSellers] = useState(null);
     useEffect(() => {
         fetch(`http://localhost:5000/allsellers/${user?.email}`, {
@@ -27,12 +27,7 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    deleteUserData(user)
-                        .then(res => {
-                            console.log(res);
                             toast.success('Delete successfully!');
-                        })
-                        .then(error => console.log(error))
                 }
             })
     }

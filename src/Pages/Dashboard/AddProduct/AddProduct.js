@@ -37,6 +37,7 @@ const AddProduct = () => {
         data['userName'] = user?.displayName;
         data['date'] = date;
         data['email'] = user?.email;
+        data['salesStatus'] = 'available'
         setThisLoading(true);
         console.log(data)
         const img = data.image[0];

@@ -87,7 +87,7 @@ const Signup = () => {
                                         .then(data => {
                                             if (data.acknowledged === true) {
                                                 getToken(userData?.email);
-                                                navigate('/')
+                                                return navigate('/');
                                             }
                                         })
 
