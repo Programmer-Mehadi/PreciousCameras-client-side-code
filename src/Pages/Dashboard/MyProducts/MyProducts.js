@@ -35,6 +35,22 @@ const MyProducts = () => {
                 }
             })
     }
+    const makeAdvertise = (id) => {
+        fetch(`http://localhost:5000/makeadvertise/${id}`, {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    toast.success('Make Advertise Successfully!');
+                    refetch()
+                }
+            })
+    }
     return (
         <div>
             <h2 className="text-xl font-bold text-primary text-center py-4">My Products</h2>
@@ -67,7 +83,7 @@ const MyProducts = () => {
                                             {
                                                 product?.salesStatus === 'available' && product?.advertise === 'no' &&
                                                 <td>
-                                                    <button className='btn hover:bg-blue-400 outline-blue-300 btn-sm bg-blue-300 text-blue-800'>Make Advertise</button>
+                                                    <button onClick={()=>makeAdvertise(product._id)} className='btn hover:bg-blue-400 outline-blue-300 btn-sm bg-blue-300 text-blue-800'>Make Advertise</button>
                                                 </td>
                                             }
                                             {
