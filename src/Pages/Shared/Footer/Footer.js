@@ -20,9 +20,9 @@ const Footer = () => {
                 </div>
                 <div>
                     <span className="footer-title">Company</span>
-                    <a className="link link-hover">Home</a>
-                    <a className="link link-hover">Blog</a>
-                    <a className="link link-hover">Dashboard</a>
+                    <Link to='/' className="link link-hover">Home</Link>
+                    <Link to='/blog' className="link link-hover">Blog</Link>
+                    <Link to='/dashboard' className="link link-hover">Dashboard</Link>
                     <a className="link link-hover">About Us</a>
                 </div>
                 <div>
