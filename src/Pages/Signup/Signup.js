@@ -46,7 +46,6 @@ const Signup = () => {
                     })
             })
             .then(error => {
-          
                 setError(error.code);
                 setThisLoading(false);
             })

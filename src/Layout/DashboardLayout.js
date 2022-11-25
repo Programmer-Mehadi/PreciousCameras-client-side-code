@@ -36,7 +36,7 @@ const DashboardLayout = () => {
     return (
         <div className=''>
             <Navbar></Navbar>
-            <div className='w-[99%] mx-auto px-5 mt-6'>
+            <div className='w-[99%] mx-auto px-5 my-6'>
                 <div className="drawer drawer-mobile gap-4 h-auto">
                     <input id="drawer" type="checkbox" className="drawer-toggle" />
                     <div className="drawer-content flex flex-col bg-secondary rounded text-white">

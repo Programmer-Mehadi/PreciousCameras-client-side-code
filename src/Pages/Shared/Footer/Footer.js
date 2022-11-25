@@ -14,7 +14,7 @@ const Footer = () => {
                 <div>
                     <span className="footer-title">Top Categories</span>
                     {
-                        categories.map(category=><Link key={category._id} className="link link-hover">{category.name}</Link>)
+                        categories.map(category=><Link to={`/category/${category._id}`}  key={category._id} className="link link-hover">{category.name}</Link>)
                     }
                 </div>
                 <div>

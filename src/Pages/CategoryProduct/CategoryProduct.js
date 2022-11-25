@@ -14,7 +14,6 @@ const CategoryProduct = () => {
     const [categoryName, setCategoryName] = useState('')
     const [bookingProduct, setBookingProduct] = useState(null);
     useEffect(() => {
-
         if ((products?.name)?.length > 0) {
             setCategoryName(products?.name);
         }
