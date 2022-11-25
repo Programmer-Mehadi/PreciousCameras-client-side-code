@@ -37,9 +37,9 @@ const AddProduct = () => {
         data['userName'] = user?.displayName;
         data['date'] = date;
         data['email'] = user?.email;
-        data['salesStatus'] = 'available'
+        data['salesStatus'] = 'available';
+        data['advertise'] = 'no';
         setThisLoading(true);
-        console.log(data)
         const img = data.image[0];
         const formData = new FormData();
         let imgUrl = '';

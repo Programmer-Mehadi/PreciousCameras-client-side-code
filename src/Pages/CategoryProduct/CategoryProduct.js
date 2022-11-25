@@ -7,7 +7,7 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 
 const CategoryProduct = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const products = useLoaderData();
 
     const [categoryName, setCategoryName] = useState('')
@@ -66,6 +66,11 @@ const CategoryProduct = () => {
                 if (data.acknowledged) {
                     toast.success('Item Book Comfirm Successfully!');
                     setBookingProduct(null);
+                }
+                if (data?.status === 'Forbidden' || data?.status === 'unauthorized access') {
+                    logOut()
+                        .then(res => toast.success('Logout Successfully! please login again.'))
+                        .then(error => console.log(error))
                 }
             })
 
