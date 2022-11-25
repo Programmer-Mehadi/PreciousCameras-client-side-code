@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
+    const [isValidate] = useValidation(user?.email);
     const { data: products = null, isLoading, refetch } = useQuery({
         queryKey: ['myproducts'],
         queryFn: () => fetch(`http://localhost:5000/myproducts/${user?.email}`, {

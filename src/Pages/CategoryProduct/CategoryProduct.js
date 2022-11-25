@@ -4,12 +4,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import useValidation from "../../Hooks/useValidation";
 
 
 const CategoryProduct = () => {
     const { user, logOut } = useContext(AuthContext)
     const products = useLoaderData();
-
+    const [isValidate] = useValidation(user?.email);
     const [categoryName, setCategoryName] = useState('')
     const [bookingProduct, setBookingProduct] = useState(null);
     useEffect(() => {

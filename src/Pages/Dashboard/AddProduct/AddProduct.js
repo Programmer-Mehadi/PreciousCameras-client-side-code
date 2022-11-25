@@ -3,18 +3,21 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 const AddProduct = () => {
     const [thisLoading, setThisLoading] = useState(false)
     const [categories, setCategories] = useState([])
+    const { loading, user, logOut } = useContext(AuthContext);
+    const [isValidate] = useValidation(user?.email);
     useEffect(() => {
         fetch('http://localhost:5000/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
     const navigate = useNavigate();
-    const { loading, user } = useContext(AuthContext);
+
 
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();

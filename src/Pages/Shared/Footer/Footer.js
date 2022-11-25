@@ -9,7 +9,7 @@ const Footer = () => {
             .then(data => setCategories(data.slice(0, 4)))
     }, [])
     return (
-        <div className='mt-14 bg-secondary text-white'>
+        <div className=' bg-secondary text-white'>
             <footer className="footer p-10 px-5 w-[99%] mx-auto ">
                 <div>
                     <span className="footer-title">Top Categories</span>

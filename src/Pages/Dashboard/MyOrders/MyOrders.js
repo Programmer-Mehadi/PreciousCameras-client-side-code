@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 
 const MyOrders = () => {
 
     const { user } = useContext(AuthContext);
-
+    const [isValidate] = useValidation(user?.email);
     const { data: orders = null, isLoading, refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: () => fetch(`http://localhost:5000/orders?email=${user?.email}`, {

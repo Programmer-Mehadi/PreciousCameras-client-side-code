@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 const ReportedItems = () => {
     const { user } = useContext(AuthContext);
     const [reportedItems, setreportedItems] = useState(null);
+    const [isValidate] = useValidation(user?.email);
     useEffect(() => {
         fetch(`http://localhost:5000/reporteditems`, {
             headers: {

@@ -2,11 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 
 const Dashboard = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [isValidate] = useValidation(user?.email);
     const navigate = useNavigate()
     useEffect(() => {
         fetch(`http://localhost:5000/checkusertype/${user?.email}`, {

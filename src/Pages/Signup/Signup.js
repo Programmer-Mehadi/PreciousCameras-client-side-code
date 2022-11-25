@@ -104,7 +104,7 @@ const Signup = () => {
     }
     return (
         <div>
-            <div className="hero min-h-screen  bg-base-200">
+            <div className="hero py-6  bg-base-200">
                 <div className="hero-content flex-col lg:flex-row-reverse w-[99%] mx-auto">
                     <div className="card flex-shrink-0  w-[98%] mx-auto max-w-[500px] shadow-2xl bg-base-100">
                         {

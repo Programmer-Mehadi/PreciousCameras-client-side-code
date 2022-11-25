@@ -11,7 +11,6 @@ const ProductCategories = () => {
     })
 
     if (!categories) {
-        console.log('loading');
         return <Loading></Loading>
     }
 
