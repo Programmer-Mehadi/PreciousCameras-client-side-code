@@ -11,7 +11,7 @@ const Dashboard = () => {
     const [isValidate] = useValidation(user?.email);
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://localhost:5000/checkusertype/${user?.email}`, {
+        fetch(`${process.env.REACT_APP_server_api}checkusertype/${user?.email}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`

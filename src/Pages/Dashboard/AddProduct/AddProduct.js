@@ -12,7 +12,7 @@ const AddProduct = () => {
     const { loading, user, logOut } = useContext(AuthContext);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch(`${process.env.REACT_APP_server_api}categories`)
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
@@ -56,7 +56,7 @@ const AddProduct = () => {
                 if (imgbb.success) {
                     imgUrl = imgbb.data.display_url;
                     data['image'] = imgUrl;
-                    fetch('http://localhost:5000/addproduct', {
+                    fetch(`${process.env.REACT_APP_server_api}addproduct`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

@@ -11,7 +11,7 @@ const AllBuyers = () => {
     const [buyers, setBuyers] = useState(null);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
-        fetch(`http://localhost:5000/allbuyers/${user?.email}`, {
+        fetch(`${process.env.REACT_APP_server_api}allbuyers/${user?.email}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`
@@ -22,7 +22,7 @@ const AllBuyers = () => {
     }, [buyers])
 
     const deleteUser = (id) => {
-        fetch(`http://localhost:5000/userdelete/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}userdelete/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

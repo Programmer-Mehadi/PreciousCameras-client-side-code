@@ -9,6 +9,7 @@ import Loading from "../Shared/Loading/Loading";
 import getToken from '../../Hooks/useToken.js';
 
 const Signup = () => {
+    
     const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, createUser, googleSignupAndLogin, updateUserProfile } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Signup = () => {
                     type: "Buyer"
                 }
                 console.log(userData);
-                fetch(`http://localhost:5000/addusers`, {
+                fetch(`${process.env.REACT_APP_server_api}addusers`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -55,6 +56,7 @@ const Signup = () => {
         const img = data.image[0];
         createUser(data.email, data.password)
             .then(result => {
+            
                 setError(null)
                 const formData = new FormData();
                 let imgUrl = '';
@@ -75,7 +77,7 @@ const Signup = () => {
                                         email: data.email,
                                         type: data.userType
                                     }
-                                    fetch(`http://localhost:5000/addusers`, {
+                                    fetch(`${process.env.REACT_APP_server_api}addusers`, {
                                         method: 'POST',
                                         headers: {
                                             'content-type': 'application/json'

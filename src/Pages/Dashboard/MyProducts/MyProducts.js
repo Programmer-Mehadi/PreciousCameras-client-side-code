@@ -10,7 +10,7 @@ const MyProducts = () => {
     const [isValidate] = useValidation(user?.email);
     const { data: products = null, isLoading, refetch } = useQuery({
         queryKey: ['myproducts'],
-        queryFn: () => fetch(`http://localhost:5000/myproducts/${user?.email}`, {
+        queryFn: () => fetch(`${process.env.REACT_APP_server_api}myproducts/${user?.email}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`
@@ -22,7 +22,7 @@ const MyProducts = () => {
         return <Loading></Loading>
     }
     const deleteProduct = (id) => {
-        fetch(`http://localhost:5000/deleteproduct/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}deleteproduct/${id}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`
@@ -38,7 +38,7 @@ const MyProducts = () => {
             })
     }
     const makeAdvertise = (id) => {
-        fetch(`http://localhost:5000/makeadvertise/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}makeadvertise/${id}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`

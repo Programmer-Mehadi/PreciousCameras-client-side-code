@@ -11,7 +11,7 @@ const MyOrders = () => {
     const [isValidate] = useValidation(user?.email);
     const { data: orders = null, isLoading, refetch } = useQuery({
         queryKey: ['orders'],
-        queryFn: () => fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        queryFn: () => fetch(`${process.env.REACT_APP_server_api}orders?email=${user?.email}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`

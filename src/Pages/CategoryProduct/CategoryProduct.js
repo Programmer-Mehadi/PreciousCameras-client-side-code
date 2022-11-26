@@ -19,7 +19,7 @@ const CategoryProduct = () => {
         }
         else {
             const id = products[0]?.category;
-            fetch('http://localhost:5000/categories')
+            fetch(`${process.env.REACT_APP_server_api}categories`)
                 .then(res => res.json())
                 .then(data => {
                     data.map(d => {
@@ -53,7 +53,7 @@ const CategoryProduct = () => {
             phoneNumber,
             location
         }
-        fetch('http://localhost:5000/addbooking', {
+        fetch(`${process.env.REACT_APP_server_api}addbooking`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -82,7 +82,7 @@ const CategoryProduct = () => {
 
     const reportProduct = (product) => {
         const data = { itemId: product?._id, userEmail: user?.email, userName: user?.displayName };
-        fetch(`http://localhost:5000/reporttoadmin/${product?._id}`, {
+        fetch(`${process.env.REACT_APP_server_api}reporttoadmin/${product?._id}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import Loading from '../../Shared/Loading/Loading';
 
 const ProductCategories = () => {
-    console.log('product categories');
+   
     const { data: categories = null, isLoading, refetch } = useQuery({
         queryKey: ['categories'],
-        queryFn: () => fetch(`http://localhost:5000/categories`)
+        queryFn: () => fetch(`${process.env.REACT_APP_server_api}categories`)
             .then(res => res.json())
     })
 

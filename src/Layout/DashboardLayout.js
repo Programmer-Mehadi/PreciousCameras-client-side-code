@@ -10,7 +10,7 @@ const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user?.email}`)
+        fetch(`${process.env.REACT_APP_server_api}users/${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setCurentUser(data);

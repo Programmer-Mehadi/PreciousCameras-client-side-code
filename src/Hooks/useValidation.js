@@ -4,11 +4,11 @@ import { AuthContext } from "../Contexts/AuthProvider";
 
 
 const useValidation = email => {
-    const { user,logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [isValidate, setisValidate] = useState(false);
     useEffect(() => {
         if (user) {
-            fetch('http://localhost:5000/uservalidationcheck', {
+            fetch(`${process.env.REACT_APP_server_api}uservalidationcheck`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `barer ${localStorage.getItem('accessToken')}`

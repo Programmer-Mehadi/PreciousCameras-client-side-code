@@ -9,7 +9,7 @@ const ReportedItems = () => {
     const [reportedItems, setreportedItems] = useState(null);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
-        fetch(`http://localhost:5000/reporteditems`, {
+        fetch(`${process.env.REACT_APP_server_api}reporteditems`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`
@@ -20,7 +20,7 @@ const ReportedItems = () => {
     }, [reportedItems])
     const deleteProduct = (id) => {
 
-        fetch(`http://localhost:5000/reportedproductdelete/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}reportedproductdelete/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

@@ -1,7 +1,7 @@
 
 const getToken = (email) => {
 
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`${process.env.REACT_APP_server_api}jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
             if (data?.accessToken) {

@@ -9,7 +9,7 @@ const AllSellers = () => {
     const [sellers, setSellers] = useState(null);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
-        fetch(`http://localhost:5000/allsellers/${user?.email}`, {
+        fetch(`${process.env.REACT_APP_server_api}allsellers/${user?.email}`, {
             headers: {
                 'content-type': 'application/json',
                 authorization: `barer ${localStorage.getItem('accessToken')}`
@@ -19,7 +19,7 @@ const AllSellers = () => {
             .then(data => setSellers(data))
     }, [sellers])
     const deleteUser = (id) => {
-        fetch(`http://localhost:5000/userDelete/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}userDelete/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -34,7 +34,7 @@ const AllSellers = () => {
             })
     }
     const verifyUser = (id) => {
-        fetch(`http://localhost:5000/userverify/${id}`, {
+        fetch(`${process.env.REACT_APP_server_api}userverify/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

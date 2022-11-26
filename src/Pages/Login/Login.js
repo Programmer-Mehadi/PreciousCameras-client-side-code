@@ -23,7 +23,7 @@ const Login = () => {
                     email: result?.user?.email,
                     type: "Buyer"
                 }
-                fetch(`http://localhost:5000/addusers`, {
+                fetch(`${process.env.REACT_APP_server_api}addusers`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
