@@ -35,7 +35,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.acknowledged === true) {
+                        if (data.acknowledged === true || "Already inserted.") {
                             getToken(userData?.email);
                             toast.success('Signin successfully!');
                             setThisLoading(false);                             

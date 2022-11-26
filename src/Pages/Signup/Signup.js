@@ -38,8 +38,8 @@ const Signup = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.acknowledged === true) {
-                            getToken(userData?.email);
+                        if (data.acknowledged === true || "Already inserted.") {
+                            getToken(userData?.email);                           
                             setThisLoading(false);
                             navigate('/');
                         }
@@ -84,8 +84,10 @@ const Signup = () => {
                                     })
                                         .then(res => res.json())
                                         .then(data => {
-                                            if (data.acknowledged === true) {
+                                            if (data.acknowledged === true || "Already inserted.") {
                                                 getToken(userData?.email);
+                                                toast.success('Signin successfully!');
+                                                setThisLoading(false);
                                                 return navigate('/');
                                             }
                                         })

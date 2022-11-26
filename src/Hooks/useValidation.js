@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Contexts/AuthProvider";
 import toast from 'react-hot-toast';
+import { AuthContext } from "../Contexts/AuthProvider";
 
 
 const useValidation = email => {

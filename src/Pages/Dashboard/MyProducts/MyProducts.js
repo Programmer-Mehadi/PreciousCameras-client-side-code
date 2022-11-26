@@ -58,7 +58,7 @@ const MyProducts = () => {
             <h2 className="text-xl font-bold text-primary text-center py-4">My Products</h2>
             <div>
                 {
-                    !products && products?.length === 0 && <h2 className='text-center text-xl font-semibold'>No Products found.</h2>
+                    !products || products?.length === 0 && <h2 className='text-center text-xl font-semibold'>No Products found.</h2>
                 }
                 {
                     products?.length > 0 &&
@@ -69,7 +69,7 @@ const MyProducts = () => {
                                     <th></th>
                                     <th>Image</th>
                                     <th >Title</th>
-                                        <th>Price {  }</th>
+                                    <th>Price { }</th>
                                     <th>Advertise</th>
                                     <th>Delete</th>
                                 </tr>
@@ -79,7 +79,7 @@ const MyProducts = () => {
                                     products?.map((product, i) =>
                                         <tr key={product._id}>
                                             <th>{i + 1}</th>
-                                            <td> <img src={product?.image} className="border" alt="" /></td>
+                                            <td> <img src={product?.image} className="border h-16" alt="" /></td>
                                             <td >{product?.name}</td>
                                             <td>{product?.resalePrice}tk</td>
                                             {
