@@ -63,7 +63,7 @@ const ReportedItems = () => {
                                 reportedItems.map((item, i) =>
                                     <tr key={item._id}>
                                         <th>{i + 1}</th>
-                                        <th><img src={item.image} alt="" /></th>
+                                        <th><img className='h-16 border' src={item.image} alt="" /></th>
                                         <td>{item.name}</td>
                                         <td>{item.resalePrice}tk</td>
                                         <td><button onClick={() => deleteProduct(item._id)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Delete</button></td>

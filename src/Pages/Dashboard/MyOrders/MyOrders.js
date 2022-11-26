@@ -52,7 +52,7 @@ const MyOrders = () => {
                                 orders.map((order, i) =>
                                     <tr key={order._id}>
                                         <th>{i + 1}</th>
-                                        <td> <img src={order?.itemImg} className="border" alt="" /></td>
+                                        <td> <img src={order?.itemImg} className=" h-16 border" alt="" /></td>
                                         <td >{order?.itemName
                                         }</td>
                                         <td>{order?.price}tk</td>
