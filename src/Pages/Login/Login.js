@@ -1,23 +1,20 @@
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import getToken from "../../Hooks/useToken";
 import Loading from "../Shared/Loading/Loading";
 const Login = () => {
-    const [thisLoading, setThisLoading] = useState(false)
-    const navigate = useNavigate();
     const { loading, user, googleSignupAndLogin, signIn } = useContext(AuthContext);
+    const location = useLocation()
+    const from = location?.state?.form?.pathname || '/';
+    const navigate = useNavigate()
+    const [thisLoading, setThisLoading] = useState(false)
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
-    useEffect(() => {
-        if (user) {
-            return navigate('/')
-        }
-    }, [user])
     const googleSignin = () => {
         googleSignupAndLogin()
             .then(result => {
@@ -35,16 +32,16 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.acknowledged === true || "Already inserted.") {
+                        if (data?.acknowledged === true || data?.ownStatus === "Already inserted.") {
                             getToken(userData?.email);
                             toast.success('Signin successfully!');
-                            setThisLoading(false);                             
-                            navigate('/');
+                            setThisLoading(false);
+                            navigate(from, { replace: true });
                         }
                     })
             })
             .then(error => {
-                setError(error.code);
+                setError(error?.code);
                 setThisLoading(false);
             })
     }
@@ -55,6 +52,7 @@ const Login = () => {
                 getToken(result?.user?.email);
                 toast.success("Login successfully!")
                 setThisLoading(false);
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 setError(error.code);
