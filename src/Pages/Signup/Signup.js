@@ -39,7 +39,7 @@ const Signup = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.acknowledged === true || "Already inserted.") {
+                        if (data?.acknowledged === true || data?.ownStatus == "Already inserted.") {
                             getToken(userData?.email);                           
                             setThisLoading(false);
                             navigate('/');

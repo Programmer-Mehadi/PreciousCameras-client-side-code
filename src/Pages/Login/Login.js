@@ -32,6 +32,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        console.log(data);
                         if (data?.acknowledged === true || data?.ownStatus === "Already inserted.") {
                             getToken(userData?.email);
                             toast.success('Signin successfully!');

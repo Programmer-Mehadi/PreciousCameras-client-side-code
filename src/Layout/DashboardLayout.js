@@ -19,18 +19,18 @@ const DashboardLayout = () => {
     }, [user])
 
     const adminUl = <>
-        <li className='border-b border-slate-600'><Link to='/dashboard/allsellers'>All Sellers</Link></li>
-        <li className='border-b border-slate-600'><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
-        <li className='border-b border-slate-600'><Link to='/dashboard/reporteditems'>Reported Items</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/allsellers'>All Sellers</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/reporteditems'>Reported Items</Link></li>
     </>;
 
     const buyerUl = <>
-        <li className='border-b border-slate-600'><Link to='/dashboard/myorders'>My Orders</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/myorders'>My Orders</Link></li>
     </>;
 
     const sellerUl = <>
-        <li className='border-b border-slate-600'><Link to='/dashboard/addproduct'>Add a Product</Link></li>
-        <li className='border-b border-slate-600'><Link to='/dashboard/myproducts'>My Products</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/addproduct'>Add a Product</Link></li>
+        <li className='border-b-2 border-slate-600'><Link to='/dashboard/myproducts'>My Products</Link></li>
 
     </>
     return (
@@ -42,7 +42,7 @@ const DashboardLayout = () => {
                     <div className="drawer-content flex flex-col bg-secondary rounded text-white shadow">
                         <Outlet></Outlet>
                     </div>
-                    <div className="drawer-side bg-secondary rounded h-fit md:w-[300px]  ">
+                    <div className="drawer-side bg-secondary rounded h-fit md:w-[300px] border-2 border-secondary ">
                         <label htmlFor="drawer" className="drawer-overlay"></label>
                         <ul className="menu h-[200px]  md:w-[300px] lg:w-full bg-primary  text-black font-semibold shadow">
                             {currentUser !== null && currentUser?.isAdmin && adminUl}
