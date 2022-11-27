@@ -7,6 +7,7 @@ import AllSellers from '../Pages/Dashboard/AllSellers/AllSellers.js';
 import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard.js';
 import MyOrders from '../Pages/Dashboard/MyOrders/MyOrders.js';
 import MyProducts from '../Pages/Dashboard/MyProducts/MyProducts.js';
+import Payment from '../Pages/Dashboard/Payment/Payment.js';
 import ReportedItems from '../Pages/Dashboard/ReportedItems/ReportedItems.js';
 import ErrorPage from '../Pages/ErrorPage/ErrorPage.js';
 import Home from '../Pages/Home/Home/Home.js';
@@ -74,6 +75,11 @@ const routes = createBrowserRouter([
             {
                 path: '/dashboard/addproduct',
                 element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
+            },
+            {
+                path: '/dashboard/payment/:id',
+                loader: ({params}) => fetch(`http://localhost:5000/bookings/${params.id}`),
+                element: <Payment></Payment>
             }
         ]
     },

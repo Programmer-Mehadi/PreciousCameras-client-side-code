@@ -5,7 +5,7 @@ import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
-    const { user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [sellers, setSellers] = useState(null);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
@@ -29,7 +29,7 @@ const AllSellers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                            toast.success('Delete successfully!');
+                    toast.success('Delete from mongodb successfully!');
                 }
             })
     }
@@ -43,8 +43,8 @@ const AllSellers = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.modifiedCount > 0) {                    
-                    toast.success('Update verify successfully!');      
+                if (data.modifiedCount > 0) {
+                    toast.success('Update verify successfully!');
                 }
             })
     }
@@ -55,7 +55,7 @@ const AllSellers = () => {
         <div>
             <h2 className="text-xl font-bold text-primary text-center py-4">All Sellers</h2>
             {
-               sellers && sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers Found.</h2>
+                sellers && sellers.length === 0 && <h2 className='text-center text-xl font-semibold'>No Sellers Found.</h2>
             }
             {
                 sellers.length > 0 && <div className="overflow-x-auto text-secondary w-[98%] mx-auto mb-2">

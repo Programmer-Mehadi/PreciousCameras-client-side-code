@@ -7,7 +7,7 @@ import Loading from '../../Shared/Loading/Loading';
 
 const AllBuyers = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, deleteUserData } = useContext(AuthContext);
     const [buyers, setBuyers] = useState(null);
     const [isValidate] = useValidation(user?.email);
     useEffect(() => {
@@ -21,8 +21,8 @@ const AllBuyers = () => {
             .then(data => setBuyers(data))
     }, [buyers])
 
-    const deleteUser = (id) => {
-        fetch(`${process.env.REACT_APP_server_api}userdelete/${id}`, {
+    const deleteUser = (buyer) => {
+        fetch(`${process.env.REACT_APP_server_api}userdelete/${buyer._id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
@@ -32,7 +32,10 @@ const AllBuyers = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    toast.success('Delete successfully!');
+                    toast.success('Delete from mongodb successfully!');
+                    // deleteUserData(buyer?.uid)
+                    //     .then(result => console.log(result))
+                    //     .then(error => console.log(error))
                 }
             })
     }
@@ -69,7 +72,7 @@ const AllBuyers = () => {
                                         <td>{buyer.name}</td>
                                         <td>{buyer.email}</td>
                                         <td>{buyer.type}</td>
-                                        <td><button onClick={() => deleteUser(buyer._id)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Delete</button></td>
+                                        <td><button onClick={() => deleteUser(buyer)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Delete</button></td>
                                     </tr>
                                 )
                             }

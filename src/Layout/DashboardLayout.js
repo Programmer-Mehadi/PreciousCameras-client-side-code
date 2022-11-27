@@ -19,18 +19,18 @@ const DashboardLayout = () => {
     }, [user])
 
     const adminUl = <>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/allsellers'>All Sellers</Link></li>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/reporteditems'>Reported Items</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/allsellers'>All Sellers</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/reporteditems'>Reported Items</Link></li>
     </>;
 
     const buyerUl = <>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/myorders'>My Orders</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/myorders'>My Orders</Link></li>
     </>;
 
     const sellerUl = <>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/addproduct'>Add a Product</Link></li>
-        <li className='border-b-2 border-slate-600'><Link to='/dashboard/myproducts'>My Products</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/addproduct'>Add a Product</Link></li>
+        <li className='border-b-2 border-secondary'><Link to='/dashboard/myproducts'>My Products</Link></li>
 
     </>
     return (

@@ -9,7 +9,7 @@ import Loading from "../Shared/Loading/Loading";
 import getToken from '../../Hooks/useToken.js';
 
 const Signup = () => {
-    
+
     const [thisLoading, setThisLoading] = useState(false)
     const navigate = useNavigate();
     const { loading, user, createUser, googleSignupAndLogin, updateUserProfile } = useContext(AuthContext);
@@ -20,13 +20,14 @@ const Signup = () => {
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
     const googleSignin = () => {
-        // setThisLoading(true);
+    
         googleSignupAndLogin()
             .then(result => {
                 toast.success('Signin successfully!');
                 const userData = {
                     name: result.user?.displayName,
                     email: result.user?.email,
+                    uid: result.user?.uid,
                     type: "Buyer"
                 }
                 console.log(userData);
@@ -40,7 +41,7 @@ const Signup = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data?.acknowledged === true || data?.ownStatus == "Already inserted.") {
-                            getToken(userData?.email);                           
+                            getToken(userData?.email);
                             setThisLoading(false);
                             navigate('/');
                         }
@@ -54,9 +55,9 @@ const Signup = () => {
     const handleSignup = (data) => {
         setThisLoading(true);
         const img = data.image[0];
+        console.log(img);
         createUser(data.email, data.password)
             .then(result => {
-            
                 setError(null)
                 const formData = new FormData();
                 let imgUrl = '';
@@ -75,6 +76,7 @@ const Signup = () => {
                                     const userData = {
                                         name: data.name,
                                         email: data.email,
+                                        uid: result.user?.uid,
                                         type: data.userType
                                     }
                                     fetch(`${process.env.REACT_APP_server_api}addusers`, {

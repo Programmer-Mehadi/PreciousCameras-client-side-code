@@ -51,10 +51,28 @@ const Login = () => {
         setThisLoading(true);
         signIn(data.email, data.password)
             .then((result) => {
-                getToken(result?.user?.email);
-                toast.success("Login successfully!")
-                setThisLoading(false);
-                navigate(from, { replace: true });
+                const userData = {
+                    name: result?.user?.displayName,
+                    email: result?.user?.email,
+                    type: "Buyer"
+                }
+                fetch(`${process.env.REACT_APP_server_api}addusers`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data?.acknowledged === true || data?.ownStatus === "Already inserted.") {
+                            getToken(userData?.email);
+                            toast.success('Signin successfully!');
+                            setThisLoading(false);
+                            navigate(from, { replace: true });
+                        }
+                    })
             })
             .catch(error => {
                 setError(error.code);

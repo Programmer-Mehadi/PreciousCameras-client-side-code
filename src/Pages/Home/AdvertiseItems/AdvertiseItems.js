@@ -83,7 +83,7 @@ const AdvertiseItems = () => {
             .then(res => res.json())
             .then(data => {
                 if (data?.ownStatus) {
-                    toast.success(data.ownStatus)
+                    toast.error(data.ownStatus)
                 }
                 else {
                     toast.success('Successfully reported!')

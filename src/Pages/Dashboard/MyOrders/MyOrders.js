@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
@@ -63,7 +64,7 @@ const MyOrders = () => {
                                                 </td>
                                                 :
                                                 <td>
-                                                    <button onClick={() => orderPaid(order)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Pay</button></td>
+                                                    <Link to={`/dashboard/payment/${order.itemId}`}     className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Pay</Link></td>
                                         }
 
                                     </tr>
