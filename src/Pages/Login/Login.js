@@ -15,6 +15,7 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
+    console.log(from);
     const googleSignin = () => {
         googleSignupAndLogin()
             .then(result => {

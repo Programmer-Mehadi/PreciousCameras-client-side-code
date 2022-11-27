@@ -1,16 +1,19 @@
 import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import Loading from '../../Shared/Loading/Loading';
 
 const AdvertiseItems = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user,logOut } = useContext(AuthContext);
     const location = useLocation();
+    const navigate = useNavigate();
+    const [bookingProduct, setBookingProduct] = useState(null);
+
     const { data: items = null, isLoading, refetch } = useQuery({
         queryKey: ['advertiseditems'],
         queryFn: () => fetch(`${process.env.REACT_APP_server_api}advertiseditems`)
@@ -20,12 +23,52 @@ const AdvertiseItems = () => {
     if (!items) {
         return <Loading></Loading>
     }
-    const setBookingProduct = (product) => {
-
-        if (!user) {
-            console.log(product);
-            return <Navigate to='/login' state={{ form: location }} replace></Navigate>;
+    const handleBooking = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const customerName = user?.displayName;
+        const customerEmail = user?.email;
+        const itemName = form.itemName.value;
+        const price = form.price.value;
+        const phoneNumber = form.phoneNumber.value;
+        const location = form.location.value;
+        const itemId = bookingProduct._id;
+        const itemImg = bookingProduct.image;
+        const bookingData = {
+            customerName,
+            customerEmail,
+            itemId,
+            itemName,
+            itemImg,
+            price,
+            phoneNumber,
+            location
         }
+        fetch(`${process.env.REACT_APP_server_api}addbooking`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(bookingData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ownStatus == 'You already booked it.') {
+                    toast.error(data.ownStatus);
+                    setBookingProduct(null);
+                }
+                if (data.acknowledged) {
+                    toast.success('Item Book Comfirm Successfully!');
+                    setBookingProduct(null);
+                }
+                if (data?.status === 'Forbidden' || data?.status === 'unauthorized access') {
+                    logOut()
+                        .then(res => toast.error('Logout Successfully! please login again.'))
+                        .then(error => console.log(error))
+                }
+            })
+
     }
     const reportProduct = (product) => {
         const data = { itemId: product?._id, userEmail: user?.email, userName: user?.displayName };
@@ -98,17 +141,83 @@ const AdvertiseItems = () => {
 
                                 </div>
 
-                                <div className="card-actions justify-center">
-                                    <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
-                                </div>
-                                <div className="card-actions justify-center">
-                                    <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
-                                </div>
+                                {
+                                    user ? <>
+                                        <div className="card-actions justify-center">
+                                            <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
+                                        </div>
+                                        <div className="card-actions justify-center">
+                                            <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
+                                        </div>
+                                    </> :
+                                        <div className="card-actions justify-center">
+                                            <Link to='/login' className="btn btn-primary w-full rounded-3xl font-bold">Please Login to Buy</Link>
+                                        </div>
+                                }
                             </div>
                         </div>
                     )
                 }
             </div>
+            {
+                bookingProduct && <div className="modal-section">
+                    <input type="checkbox" id="my-modal-3" className="modal-toggle h-auto" />
+                    <div className="modal h-auto">
+                        <div className="modal-box relative h-auto">
+                            <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                            <h3 className="text-lg font-bold">{bookingProduct?.name}</h3>
+                            <form className="h-auto" onSubmit={handleBooking}>
+                                <div className="hero-content flex-col lg:flex-row-reverse">
+                                    <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
+                                        <div className="card-body">
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Name</span>
+                                                </label>
+                                                <input name="customerName" value={user?.displayName} type="text" placeholder="name" className="input input-bordered" readOnly />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Email</span>
+                                                </label>
+                                                <input name='customerEmail' value={user?.email} type="email" placeholder="email" className="input input-bordered" readOnly />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Item name</span>
+                                                </label>
+                                                <input name="itemName" value={bookingProduct?.name} type="text" placeholder="item name" className="input input-bordered" readOnly/>
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Price</span>
+                                                </label>
+                                                <input name="price" value={bookingProduct?.resalePrice} type="text" placeholder="price" className="input input-bordered" readOnly />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Phone number</span>
+                                                </label>
+                                                <input name="phoneNumber" type="text" placeholder="phone number" className="input input-bordered" required />
+                                            </div>
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Meeting location</span>
+                                                </label>
+                                                <input name="location" type="text" placeholder="meeting location" className="input input-bordered" required />
+                                            </div>
+
+                                            <div className="form-control mt-6">
+                                                <input type="submit" className="btn btn-primary" value="Submit" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     );
 };

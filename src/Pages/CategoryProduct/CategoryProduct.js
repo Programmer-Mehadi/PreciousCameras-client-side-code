@@ -64,7 +64,7 @@ const CategoryProduct = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.ownStatus == 'You already booked it.') {
-                    toast.success(data.ownStatus);
+                    toast.error(data.ownStatus);
                     setBookingProduct(null);
                 }
                 if (data.acknowledged) {
