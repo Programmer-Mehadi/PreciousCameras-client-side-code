@@ -36,7 +36,7 @@ const Footer = () => {
                 <div className='w-[99%] mx-auto grid  grid-cols-1 md:grid-cols-2 gap-4'>
                     <div className="items-center md:justify-start flex flex-col md:flex-row  gap-4  grid-flow-col mx-auto md:mx-0">
                          <img src={icon} className='w-16 rounded' alt="" />
-                        <p className='text-center md:text-left'>PreciousCameras Ltd. <br />Providing trusted buy and sell services since 2008</p>
+                        <p className='text-center md:text-left'><span className='font-bold'>PreciousCameras</span> Ltd. <br />Providing trusted buy and sell services since 2008</p>
                     </div>
                     <div className="md:place-self-center md:justify-self-end mx-auto md:mx-0">
                         <div className="flex w-fit gap-4 ">
