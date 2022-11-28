@@ -94,8 +94,8 @@ const Login = () => {
     return (
         <div >
             <div className="hero  bg-base-200 py-6">
-                <div className="hero-content flex-col lg:flex-row-reverse w-[99%] mx-auto">
-                    <div className="card flex-shrink-0  w-[98%] mx-auto max-w-[500px] shadow-2xl bg-base-100">
+                <div className=" flex-col lg:flex-row-reverse w-[99%] mx-auto">
+                    <div className="card flex-shrink-0  w-[90%] mx-auto max-w-[500px] shadow-2xl bg-base-100">
                         {
                             thisLoading ? <Loading /> : ''
                         }
