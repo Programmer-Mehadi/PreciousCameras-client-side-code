@@ -120,11 +120,11 @@ const Signup = () => {
         <div>
             <div className="hero py-6  bg-base-200">
                 <div className="hero-content flex-col lg:flex-row-reverse w-[99%] mx-auto">
-                    <div className="card flex-shrink-0  w-[98%] mx-auto md:max-w-[500px] shadow-2xl bg-base-100">
+                    <div className="card flex-shrink-0  w-[98%] mx-auto max-w-[500px] shadow-2xl bg-base-100">
                         {
                             thisLoading ? <Loading /> : ''
                         }
-                        <form className="card-body w-[98%] mx-auto md:max-w-[500px]" onSubmit={handleSubmit(handleSignup)}>
+                        <form className="card-body " onSubmit={handleSubmit(handleSignup)}>
                             <h2 className='text-3xl text-center font-bold'>Sign up</h2>
                             <div className="form-control">
                                 <label className="label">
