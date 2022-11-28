@@ -55,7 +55,11 @@ const MyOrders = () => {
                                         <td >{order?.itemName
                                         }</td>
                                         <td>{order?.price}tk</td>
-                                        <td>{order?.salesStatus}</td>
+                                        {
+                                            order?.salesStatus == 'sold' ?
+                                                <td className='text-red-600'>{order?.salesStatus}</td> :
+                                                <td>{order?.salesStatus}</td>
+                                       }
                                         <td>{order?.
                                             transactionId ? order.transactionId : '....'}</td>
                                         {

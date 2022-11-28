@@ -79,13 +79,14 @@ const Signup = () => {
                             imgUrl = imgbb.data.display_url;
                             updateUserProfile(data.name, imgUrl)
                                 .then(res => {
+                                    console.log(data)
                                     toast.success('Create user successfully!');
                                     const userData = {
-                                        name: data.name,
-                                        email: data.email,
-                                        uid: result.user?.uid,
-                                        photoURL: result.user?.photoURL,
-                                        type: data.userType
+                                        name: result?.user?.displayName,
+                                        email: result?.user?.email,
+                                        uid: result?.user?.uid,
+                                        photoURL: result?.user?.photoURL,
+                                        type: data?.userType
                                     }
                                     fetch(`${process.env.REACT_APP_server_api}addusers`, {
                                         method: 'POST',

@@ -19,7 +19,7 @@ const CheckoutForm = ({ booking }) => {
         if (!booking) {
             return navigate('/');
         } else {
-            fetch("${process.env.}create-payment-intent", {
+            fetch(`${process.env.REACT_APP_server_api}create-payment-intent`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price }),
@@ -28,7 +28,7 @@ const CheckoutForm = ({ booking }) => {
                 .then((data) => setClientSecret(data.clientSecret));
         }
         // Create PaymentIntent as soon as the page loads
-       
+
     }, []);
 
     const handleSubmit = async (event) => {
@@ -78,7 +78,6 @@ const CheckoutForm = ({ booking }) => {
                     console.log(response);
                     if (response.data.modifiedCount > 0) {
                         setIsPaid('yes');
-
                     }
                 })
                 .catch(function (error) {
@@ -91,7 +90,6 @@ const CheckoutForm = ({ booking }) => {
 
         }
     }
-
     return (
         <div className='bg-white text-black rounded w-[90%] '>
             <div className=''>
@@ -111,7 +109,8 @@ const CheckoutForm = ({ booking }) => {
             <div className="divider"></div>
             <form className='p-4 m-4 ' onSubmit={handleSubmit}>
                 <span className=''><CardElement /></span>
-                <button className=' mt-10 px-20 btn bg-secondary text-white' type="submit" disabled={!stripe || !elements || !clientSecret || isPaid === 'yes'}>
+                <button className=' mt-10 px-20 btn bg-secondary text-white' type="submit" disabled={!stripe || !elements || !clientSecret || isPaid === 'yes' ||
+                    salesStatus === 'sold'}>
                     Pay
                 </button>
                 {
