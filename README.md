@@ -1,3 +1,14 @@
+# PreciousCameras Website
+
+#  Features:
+- User can login by Email,password and google signin.
+- Two types of user (Buyer and Seller)
+- Buyer can buy any products thats are unsold . Buyer also have dashboard and can sell all order (own)
+- Seller can sell Products. Seller also has Dashboard. Add product and see all products. can delete any product.
+- Admin can delete any user. Admin can remove reported items.
+- Using React , JSX, Tailwind ,DaisyUI, Nodejs(express), Mongodb, etc....
+- Using react-router-dom , Hot toast, etc.... 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
