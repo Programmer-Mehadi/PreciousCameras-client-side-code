@@ -20,7 +20,7 @@ const AdvertiseItems = () => {
             .then(res => res.json())
        
     })
-    console.log(items)
+   
     if (!items) {
         return <Loading></Loading>
     }

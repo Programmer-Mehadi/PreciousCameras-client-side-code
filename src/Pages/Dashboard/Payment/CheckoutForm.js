@@ -1,26 +1,34 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({ booking }) => {
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState(null);
     const [transactionId, setTransactionId] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
-    const { _id, price, customerName, customerEmail, itemId, itemName, itemImg, phoneNumber,
-        location } = booking;
+    const { _id, price, customerName, customerEmail, itemId, itemName, itemImg, phoneNumber, location, salesStatus } = booking;
+    const [isPaid, setIsPaid] = useState(booking.isPaid);
     const stripe = useStripe();
+    const navigate = useNavigate()
     const elements = useElements();
 
+
     useEffect(() => {
+        if (!booking) {
+            return navigate('/');
+        } else {
+            fetch("http://localhost:5000/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ price }),
+            })
+                .then((res) => res.json())
+                .then((data) => setClientSecret(data.clientSecret));
+        }
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price }),
-        })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
+       
     }, []);
 
     const handleSubmit = async (event) => {
@@ -63,12 +71,15 @@ const CheckoutForm = ({ booking }) => {
             return;
         }
         if (paymentIntent.status == "succeeded") {
-
-            axios.get('/confirmorder', {
-                body: JSON.stringify(_id)
-            })
+            setTransactionId(paymentIntent.id)
+            console.log(paymentIntent.id);
+            axios.put(`${process.env.REACT_APP_server_api}confirmorder?id=${_id}&itemId=${itemId}&transactionId=${paymentIntent.id}`,)
                 .then(function (response) {
                     console.log(response);
+                    if (response.data.modifiedCount > 0) {
+                        setIsPaid('yes');
+
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -76,10 +87,8 @@ const CheckoutForm = ({ booking }) => {
                 .finally(function () {
                     // always executed
                 });
-
-            console.log(paymentIntent.status);
             setSuccess('Congrats! your payment completed.');
-            setTransactionId(paymentIntent.id)
+
         }
     }
 
@@ -102,7 +111,7 @@ const CheckoutForm = ({ booking }) => {
             <div className="divider"></div>
             <form className='p-4 m-4 ' onSubmit={handleSubmit}>
                 <span className=''><CardElement /></span>
-                <button className=' mt-10 px-20 btn bg-secondary text-white' type="submit" disabled={!stripe || !elements || !clientSecret}>
+                <button className=' mt-10 px-20 btn bg-secondary text-white' type="submit" disabled={!stripe || !elements || !clientSecret || isPaid === 'yes'}>
                     Pay
                 </button>
                 {
@@ -115,6 +124,7 @@ const CheckoutForm = ({ booking }) => {
                     transactionId && <p className='font-bold'>TransactionId : <span className='font-semibold'>{transactionId}</span></p>
                 }
             </form>
+
         </div>
     );
 };

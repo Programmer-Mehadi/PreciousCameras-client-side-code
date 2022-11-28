@@ -20,12 +20,9 @@ const MyOrders = () => {
         })
             .then(res => res.json())
     })
-
+    console.log(orders)
     if (!orders) {
         return <Loading></Loading>
-    }
-    const orderPaid = (order) => {
-        console.log(order)
     }
 
     return (
@@ -42,8 +39,10 @@ const MyOrders = () => {
                             <tr>
                                 <th></th>
                                 <th>Image</th>
-                                <th >Title</th>
+                                <th>Title</th>
                                 <th>Price</th>
+                                <th>Status</th>
+                                <th>TransactionID</th>
                                 <th>Payment</th>
                             </tr>
                         </thead>
@@ -57,14 +56,17 @@ const MyOrders = () => {
                                         <td >{order?.itemName
                                         }</td>
                                         <td>{order?.price}tk</td>
+                                        <td>{order?.salesStatus}</td>
+                                        <td>{order?.transactionID ? order.transactionID : '....'}</td>
                                         {
-                                            order?.pay ?
+                                            order?.isPaid
+                                                === "yes" ?
                                                 <td>
                                                     <button className='btn hover:bg-green-400 outline-green-300 btn-sm bg-green-300 text-green-800'>Paid</button>
                                                 </td>
                                                 :
                                                 <td>
-                                                    <Link to={`/dashboard/payment/${order.itemId}`}     className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Pay</Link></td>
+                                                    <Link to={`/dashboard/payment/${order.itemId}`} className={order?.salesStatus === 'sold' ? `btn-disabled btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800` : `btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800`} >Pay</Link></td>
                                         }
 
                                     </tr>

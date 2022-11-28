@@ -102,7 +102,6 @@ const CategoryProduct = () => {
             })
     }
 
-
     return (
         <div className='px-5 w-[99%] mx-auto py-14'>
             <h2 className='text-center text-secondary text-2xl font-bold pb-4' > {categoryName}</h2>
