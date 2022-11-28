@@ -1,26 +1,58 @@
 import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import Loading from '../../Shared/Loading/Loading';
 
 const AdvertiseItems = () => {
-
+    const [userType, setUserType] = useState(null);
     const { user, logOut } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const [bookingProduct, setBookingProduct] = useState(null);
 
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_server_api}checkusertype/${user?.email}`, {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data?.status === "Forbidden" || data?.status === "unauthorized access" || data?.ownStatus === 'not found') {
+                    logOut()
+                        .then(res => {
+                            toast.success('Logout successfully!');
+                            return navigate('/login');
+                        })
+                        .then(error => console.log(error))
+                }
+                if (data.isAdmin === true || data.isAdmin === 'true') {
+                    setUserType('admin')
+                }
+                else if (data?.type === 'Buyer') {
+                    setUserType('buyer')
+                }
+                else if (data?.type === 'Seller') {
+                    setUserType('seller')
+                }
+            })
+
+    }, [user])
+
+
     const { data: items = null, isLoading, refetch } = useQuery({
         queryKey: ['advertiseditems'],
         queryFn: () => fetch(`${process.env.REACT_APP_server_api}advertiseditems`)
             .then(res => res.json())
-       
+
     })
-   
+
     if (!items) {
         return <Loading></Loading>
     }
@@ -94,7 +126,7 @@ const AdvertiseItems = () => {
     return (
         <>
             {
-                 items?.length !== 0 &&
+                items?.length !== 0 &&
                 <div className="px-5 w-[99%] mx-auto mt-10">
                     <h2 className="text-2xl font-bold text-center pt-20">Advertise Items</h2>
                     <div className='py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
@@ -146,17 +178,19 @@ const AdvertiseItems = () => {
                                         </div>
 
                                         {
-                                            user ? <>
+                                            user && userType === 'buyer' && <>
                                                 <div className="card-actions justify-center">
                                                     <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
                                                 </div>
                                                 <div className="card-actions justify-center">
                                                     <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
                                                 </div>
-                                            </> :
-                                                <div className="card-actions justify-center">
-                                                    <Link to='/login' className="btn btn-primary w-full rounded-3xl font-bold">Please Login to Buy</Link>
-                                                </div>
+                                            </>
+                                        }
+                                        {
+                                            user === null && <div className="card-actions justify-center">
+                                                <Link to='/login' className="btn btn-primary w-full rounded-3xl font-bold">Please Login to Buy</Link>
+                                            </div>
                                         }
                                     </div>
                                 </div>
