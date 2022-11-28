@@ -47,7 +47,6 @@ const MyOrders = () => {
                             </tr>
                         </thead>
                         <tbody>
-
                             {
                                 orders.map((order, i) =>
                                     <tr key={order._id}>
@@ -57,7 +56,8 @@ const MyOrders = () => {
                                         }</td>
                                         <td>{order?.price}tk</td>
                                         <td>{order?.salesStatus}</td>
-                                        <td>{order?.transactionID ? order.transactionID : '....'}</td>
+                                        <td>{order?.
+                                            transactionId ? order.transactionId : '....'}</td>
                                         {
                                             order?.isPaid
                                                 === "yes" ?

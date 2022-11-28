@@ -11,36 +11,7 @@ const CategoryProduct = () => {
     const { user, logOut } = useContext(AuthContext);
     const [userType, setUserType] = useState(null);
     const navigate = useNavigate()
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_server_api}checkusertype/${user?.email}`, {
-            headers: {
-                'content-type': 'application/json',
-                authorization: `barer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-
-                if (data?.status === "Forbidden" || data?.status === "unauthorized access" || data?.ownStatus === 'not found') {
-                    logOut()
-                        .then(res => {
-                            toast.success('Logout successfully!');
-                            return navigate('/login');
-                        })
-                        .then(error => console.log(error))
-                }
-                if (data.isAdmin === true || data.isAdmin === 'true') {
-                    setUserType('admin')
-                }
-                else if (data?.type === 'Buyer') {
-                    setUserType('buyer')
-                }
-                else if (data?.type === 'Seller') {
-                    setUserType('seller')
-                }
-            })
-
-    }, [user])
+  
     const products = useLoaderData();
     const [isValidate] = useValidation(user?.email);
     const [categoryName, setCategoryName] = useState('')
@@ -63,7 +34,6 @@ const CategoryProduct = () => {
         }
 
     }, [products])
-    console.log(products)
     const handleBooking = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -196,7 +166,7 @@ const CategoryProduct = () => {
                                 </div>
 
                                 {
-                                    userType && userType === 'buyer' && <>
+                                    user && <>
                                         <div className="card-actions justify-center">
                                             <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
                                         </div>

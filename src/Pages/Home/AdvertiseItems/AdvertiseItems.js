@@ -1,57 +1,29 @@
 import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import Loading from '../../Shared/Loading/Loading';
 
 const AdvertiseItems = () => {
-    const [userType, setUserType] = useState(null);
-    const { user, logOut } = useContext(AuthContext);
+    const [userType, setUserType] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const { user, logOut, } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const [bookingProduct, setBookingProduct] = useState(null);
+ 
 
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_server_api}checkusertype/${user?.email}`, {
-            headers: {
-                'content-type': 'application/json',
-                authorization: `barer ${localStorage.getItem('accessToken')}`
-            }
+        const { data: items = null, isLoading, refetch } = useQuery({
+            queryKey: ['advertiseditems'],
+            queryFn: () => fetch(`${process.env.REACT_APP_server_api}advertiseditems`)
+                .then(res => res.json())
+    
         })
-            .then(res => res.json())
-            .then(data => {
 
-                if (data?.status === "Forbidden" || data?.status === "unauthorized access" || data?.ownStatus === 'not found') {
-                    logOut()
-                        .then(res => {
-                            toast.success('Logout successfully!');
-                            return navigate('/login');
-                        })
-                        .then(error => console.log(error))
-                }
-                if (data.isAdmin === true || data.isAdmin === 'true') {
-                    setUserType('admin')
-                }
-                else if (data?.type === 'Buyer') {
-                    setUserType('buyer')
-                }
-                else if (data?.type === 'Seller') {
-                    setUserType('seller')
-                }
-            })
-
-    }, [user])
-
-
-    const { data: items = null, isLoading, refetch } = useQuery({
-        queryKey: ['advertiseditems'],
-        queryFn: () => fetch(`${process.env.REACT_APP_server_api}advertiseditems`)
-            .then(res => res.json())
-
-    })
+    
 
     if (!items) {
         return <Loading></Loading>
@@ -178,7 +150,7 @@ const AdvertiseItems = () => {
                                         </div>
 
                                         {
-                                            user && userType === 'buyer' && <>
+                                            user  && <>
                                                 <div className="card-actions justify-center">
                                                     <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
                                                 </div>
