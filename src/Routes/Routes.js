@@ -85,7 +85,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`, {
+                loader: ({ params }) => fetch(`${process.env.REACT_APP_server_api}bookings/${params.id}`, {
                     headers: {
                         'content-type': 'application/json',
                         authorization: `barer ${localStorage.getItem('accessToken')}`

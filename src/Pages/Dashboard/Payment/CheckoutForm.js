@@ -19,7 +19,7 @@ const CheckoutForm = ({ booking }) => {
         if (!booking) {
             return navigate('/');
         } else {
-            fetch("http://localhost:5000/create-payment-intent", {
+            fetch("${process.env.}create-payment-intent", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ price }),
