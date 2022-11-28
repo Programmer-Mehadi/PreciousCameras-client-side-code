@@ -115,7 +115,7 @@ const CategoryProduct = () => {
             <div className='py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
                     !products?.name && products.map(product =>
-                        <div key={product._id} className="card bg-slate-50 ">
+                        <div key={product._id} className="card bg-slate-50 shadow ">
                             <figure className='rounded'><img className='border h-[20rem] w-full rounded' src={product.image} alt="Shoes" /></figure>
                             <div className="card-body  ">
                                 <h2 className="card-title text-primary">
