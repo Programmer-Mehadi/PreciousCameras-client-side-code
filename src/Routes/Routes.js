@@ -1,5 +1,6 @@
 import DashboardLayout from '../Layout/DashboardLayout.js';
 import Main from '../Layout/Main.js';
+import Blogs from '../Pages/Blogs/Blogs.js';
 import CategoryProduct from '../Pages/CategoryProduct/CategoryProduct.js';
 import AddProduct from '../Pages/Dashboard/AddProduct/AddProduct.js';
 import AllBuyers from '../Pages/Dashboard/AllBuyers/AllBuyers.js';
@@ -32,6 +33,11 @@ const routes = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>,
+            }
+            ,
+            {
+                path: '/blogs',
+                element: <Blogs></Blogs>,
             }
             ,
             {
