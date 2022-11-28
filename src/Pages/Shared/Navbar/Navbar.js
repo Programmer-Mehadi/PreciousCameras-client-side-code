@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../.../../../../assets/mainlogo.png';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location)
+    const path = location.pathname.split('/')[1];
+    console.log('path', path);
     const signOut = () => {
         logOut()
             .then(result => {
@@ -37,7 +41,9 @@ const Navbar = () => {
             <div className="navbar  text-white w-[99%] mx-auto">
                 <div className="navbar-start">
 
-                    <label htmlFor="drawer" className="pl-2  text-white lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg></label>
+                    {
+                        user !== null && path === 'dashboard' && <label htmlFor="drawer" className="pl-2  text-white lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg></label>
+                    }
 
                     <Link to='/' className="btn btn-ghost normal-case text-xl "><img className='h-full rounded' src={logo} alt="" /></Link>
 

@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider';
 import useValidation from '../../../Hooks/useValidation';
 import Loading from '../../Shared/Loading/Loading';
 
 
 const MyOrders = () => {
-
+    
     const { user } = useContext(AuthContext);
     const [isValidate] = useValidation(user?.email);
     const { data: orders = null, isLoading, refetch } = useQuery({
@@ -20,7 +20,7 @@ const MyOrders = () => {
         })
             .then(res => res.json())
     })
-    console.log(orders)
+
     if (!orders) {
         return <Loading></Loading>
     }
