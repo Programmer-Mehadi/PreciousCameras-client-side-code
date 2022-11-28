@@ -37,9 +37,9 @@ const Blogs = () => {
                         React vs. Angular vs. Vue?
                     </div>
                     <div className="collapse-content">
-                        <p>React: It's used for building interactive user interfaces and web applications quickly and efficiently with significantly less code than you would with vanilla JavaScript. In React, you develop your applications by creating reusable components that you can think of as independent Lego blocks.</p>
-                        <p>Angular: AngularJS is a JavaScript framework. It can be added to an HTML page with a {'<script>'} tag. AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions.</p>
-                        <p>Vue: Vue is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative and component-based programming model that helps you efficiently develop user interfaces, be they simple or complex.Vue. js combined the top-level features of React and Angular, but its main feature is the perfect user experience</p>
+                        <p><span className='text-base font-bold'>React:</span> It's used for building interactive user interfaces and web applications quickly and efficiently with significantly less code than you would with vanilla JavaScript. In React, you develop your applications by creating reusable components that you can think of as independent Lego blocks.</p>
+                        <p><span className='text-base font-bold'>Angular:</span> AngularJS is a JavaScript framework. It can be added to an HTML page with a {'<script>'} tag. AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions.</p>
+                        <p> <span className='text-base font-bold'>Vue:</span> Vue is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative and component-based programming model that helps you efficiently develop user interfaces, be they simple or complex.Vue. js combined the top-level features of React and Angular, but its main feature is the perfect user experience</p>
                     </div>
                 </div>
             </div>

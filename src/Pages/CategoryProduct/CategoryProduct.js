@@ -126,7 +126,7 @@ const CategoryProduct = () => {
                                     {product.verify === true && <FaCheckCircle className="text-blue-600 text-xl ml-1" />}
                                 </p>
                                 <p>Published: {product.date}</p>
-                                <div className="overflow-x-auto  text-center  grid grid-cols-1">
+                                <div className="overflow-x-auto  text-center  grid grid-cols-1 my-3">
                                     <div className="grid grid-cols-2 ">
                                         <p className="border-2">Resale Price : </p>
                                         <p className="border-2 border-l-0">{product.resalePrice}</p>
