@@ -1,5 +1,5 @@
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -19,6 +19,12 @@ const Signup = () => {
     const [data, setData] = useState("");
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
+    useEffect(() => {
+        if (user) {
+            return navigate('/')
+        }
+    })
+    
     const googleSignin = () => {
     
         googleSignupAndLogin()

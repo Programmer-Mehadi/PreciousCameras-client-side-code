@@ -1,5 +1,5 @@
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -7,15 +7,22 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 import getToken from "../../Hooks/useToken";
 import Loading from "../Shared/Loading/Loading";
 const Login = () => {
+
     const { loading, user, googleSignupAndLogin, signIn } = useContext(AuthContext);
+
     const location = useLocation()
     const from = location?.state?.form?.pathname || '/';
     const navigate = useNavigate()
+
     const [thisLoading, setThisLoading] = useState(false)
     const [error, setError] = useState(null);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState("");
-    console.log(from);
+    useEffect(() => {
+        if (user) {
+            return navigate('/')
+        }
+    })
     const googleSignin = () => {
         googleSignupAndLogin()
             .then(result => {
