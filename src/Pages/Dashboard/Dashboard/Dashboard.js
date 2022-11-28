@@ -19,7 +19,7 @@ const Dashboard = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+            
                 if (data?.status === "Forbidden" || data?.status === "unauthorized access" || data?.ownStatus === 'not found') {
                     logOut()
                         .then(res => {

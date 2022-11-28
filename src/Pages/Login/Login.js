@@ -23,7 +23,7 @@ const Login = () => {
             return navigate('/')
         }
     })
-    console.log(location);
+
     const googleSignin = () => {
         googleSignupAndLogin()
             .then(result => {
@@ -43,7 +43,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                 
                         if (data?.acknowledged === true || data?.ownStatus === "Already inserted.") {
                             getToken(userData?.email);
                             toast.success('Signin successfully!');
@@ -77,7 +77,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                      
                         if (data?.acknowledged === true || data?.ownStatus === "Already inserted.") {
                             getToken(userData?.email);
                             toast.success('Signin successfully!');

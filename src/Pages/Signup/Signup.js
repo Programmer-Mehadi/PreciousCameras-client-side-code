@@ -37,7 +37,7 @@ const Signup = () => {
                     photoURL: result.user?.photoURL,
                     type: "Buyer"
                 }
-                console.log(userData);
+     
                 fetch(`${process.env.REACT_APP_server_api}addusers`, {
                     method: 'POST',
                     headers: {
@@ -62,7 +62,7 @@ const Signup = () => {
     const handleSignup = (data) => {
         setThisLoading(true);
         const img = data.image[0];
-        console.log(img);
+      
         createUser(data.email, data.password)
             .then(result => {
                 setError(null)
@@ -79,7 +79,7 @@ const Signup = () => {
                             imgUrl = imgbb.data.display_url;
                             updateUserProfile(data.name, imgUrl)
                                 .then(res => {
-                                    console.log(data)
+                                
                                     toast.success('Create user successfully!');
                                     const userData = {
                                         name: result?.user?.displayName,

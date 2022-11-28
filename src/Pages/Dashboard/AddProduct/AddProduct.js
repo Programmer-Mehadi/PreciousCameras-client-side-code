@@ -56,7 +56,6 @@ const AddProduct = () => {
         var year = d.getFullYear();
 
         const x = day + " " + hr + ":" + min + ampm + " " + date + " " + month + " " + year;
-        console.log(x);
         return x;
     }
 

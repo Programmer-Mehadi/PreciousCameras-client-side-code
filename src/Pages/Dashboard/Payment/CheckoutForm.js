@@ -72,10 +72,9 @@ const CheckoutForm = ({ booking }) => {
         }
         if (paymentIntent.status == "succeeded") {
             setTransactionId(paymentIntent.id)
-            console.log(paymentIntent.id);
             axios.put(`${process.env.REACT_APP_server_api}confirmorder?id=${_id}&itemId=${itemId}&transactionId=${paymentIntent.id}`,)
                 .then(function (response) {
-                    console.log(response);
+                  
                     if (response.data.modifiedCount > 0) {
                         setIsPaid('yes');
                     }
