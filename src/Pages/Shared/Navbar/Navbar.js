@@ -8,9 +8,7 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location)
     const path = location.pathname.split('/')[1];
-    console.log('path', path);
     const signOut = () => {
         logOut()
             .then(result => {
@@ -27,7 +25,7 @@ const Navbar = () => {
             user ? <>
                 <li><Link to='/dashboard'>Dashboard</Link></li>
                 <li><Link onClick={signOut}>Logout</Link></li>
-                <li className='flex justify-start md:justify-center items-start md:items-center bg-white text-black rounded py-2 md:py-0'><img src={user?.photoURL} className="w-[44px]  h-[44px] p-0   border-green-500 ml-4 md:ml-1 border-2 rounded-[50%] my-0 " alt="" /> <span>{user?.displayName && user.displayName}</span> </li>
+                <li className='flex justify-start md:justify-center items-start md:items-center bg-white text-black rounded py-2 lg:py-0'><img src={user?.photoURL} className="w-[44px]  h-[44px] p-0   border-green-500 ml-4 md:ml-1 border-2 rounded-[50%] my-0 " alt="" /> <span>{user?.displayName && user.displayName}</span> </li>
             </>
                 :
                 <>
