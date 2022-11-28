@@ -124,7 +124,7 @@ const Signup = () => {
                         {
                             thisLoading ? <Loading /> : ''
                         }
-                        <form className="card-body" onSubmit={handleSubmit(handleSignup)}>
+                        <form className="card-body w-[98%] mx-auto md:max-w-[500px]" onSubmit={handleSubmit(handleSignup)}>
                             <h2 className='text-3xl text-center font-bold'>Sign up</h2>
                             <div className="form-control">
                                 <label className="label">
