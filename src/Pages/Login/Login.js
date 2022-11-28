@@ -23,6 +23,7 @@ const Login = () => {
             return navigate('/')
         }
     })
+    console.log(location);
     const googleSignin = () => {
         googleSignupAndLogin()
             .then(result => {

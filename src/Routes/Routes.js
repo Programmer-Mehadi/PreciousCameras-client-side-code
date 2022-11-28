@@ -15,6 +15,7 @@ import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import AdminRoute from './AdminRoute.js';
 import BuyerRoute from './BuyerRoute.js';
+import PaymentRoute from './PaymentRoute.js';
 import PrivateRoutes from './PrivateRoutes.js';
 import SellerRoute from './SellerRoute.js';
 const { createBrowserRouter } = require("react-router-dom");
@@ -84,7 +85,7 @@ const routes = createBrowserRouter([
                         authorization: `barer ${localStorage.getItem('accessToken')}`
                     }
                 }),
-                element: <Payment></Payment>
+                element: <PaymentRoute><Payment></Payment></PaymentRoute>
             }
         ]
     },

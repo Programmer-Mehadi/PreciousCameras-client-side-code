@@ -9,7 +9,11 @@ const Navbar = () => {
     const navigate = useNavigate();
     const signOut = () => {
         logOut()
-            .then(result => toast.success('Logout successfully!'))
+            .then(result => {
+                toast.success('Logout successfully!')
+                user = null;
+                navigate('/');
+            })
             .then(error => console.log(error));
     }
     const navbar = <>
