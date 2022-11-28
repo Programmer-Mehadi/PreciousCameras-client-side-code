@@ -164,6 +164,15 @@ const AddProduct = () => {
                             </div>
                             <div className="form-control">
                                 <label className="label">
+                                    <span className="label-text">Year of Used</span>
+                                </label>
+                                <input type="number" placeholder="year of used" className="input input-bordered text-secondary " {...register("usedYear", { required: "Used year is required" })} />
+                                {
+                                    errors.usedYear && <p className='text-red-500 my-1'>{errors.usedYear.message}*</p>
+                                }
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
                                     <span className="label-text">Category</span>
                                 </label>
                                 <select className="select select-bordered w-full max-w-xs" {...register("category", { required: "Category is required" })} >

@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const CheckoutForm = ({ booking }) => {
@@ -6,7 +7,7 @@ const CheckoutForm = ({ booking }) => {
     const [success, setSuccess] = useState(null);
     const [transactionId, setTransactionId] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
-    const { price, customerName, customerEmail, itemId, itemName, itemImg, phoneNumber,
+    const { _id, price, customerName, customerEmail, itemId, itemName, itemImg, phoneNumber,
         location } = booking;
     const stripe = useStripe();
     const elements = useElements();
@@ -62,6 +63,20 @@ const CheckoutForm = ({ booking }) => {
             return;
         }
         if (paymentIntent.status == "succeeded") {
+
+            axios.get('/confirmorder', {
+                body: JSON.stringify(_id)
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+
             console.log(paymentIntent.status);
             setSuccess('Congrats! your payment completed.');
             setTransactionId(paymentIntent.id)

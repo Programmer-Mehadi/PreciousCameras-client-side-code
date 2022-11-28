@@ -83,6 +83,9 @@ const MyProducts = () => {
                                             <td >{product?.name}</td>
                                             <td>{product?.resalePrice}tk</td>
                                             {
+                                                product?.salesStatus === 'available' ? <td>Available</td> : <td>Sold</td>
+                                            }
+                                            {
                                                 product?.salesStatus === 'available' && product?.advertise === 'no' &&
                                                 <td>
                                                     <button onClick={() => makeAdvertise(product._id)} className='btn hover:bg-blue-400 outline-blue-300 btn-sm bg-blue-300 text-blue-800'>Make Advertise</button>

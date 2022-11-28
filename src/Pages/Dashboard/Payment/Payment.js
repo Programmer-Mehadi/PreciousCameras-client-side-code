@@ -6,7 +6,6 @@ import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe(`${process.env.REACT_APP_stripe_pk}`);
 
-
 const Payment = () => {
     const data = useLoaderData()
     return (

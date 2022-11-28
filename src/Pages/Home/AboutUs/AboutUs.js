@@ -4,7 +4,7 @@ import image from '../../../assets/camera1.jpg';
 
 const AboutUs = () => {
     return (
-        <div className='mt-10 mb-32'>
+        <div className='mt-20 mb-32 '>
             <div className=" md:h-[600px] px-5">
                 <div className="w-[99%] mx-auto grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-4">
                     <div className='order-2 md:order-1'>

@@ -28,6 +28,7 @@ const Signup = () => {
                     name: result.user?.displayName,
                     email: result.user?.email,
                     uid: result.user?.uid,
+                    photoURL: result.user?.photoURL,
                     type: "Buyer"
                 }
                 console.log(userData);
@@ -77,6 +78,7 @@ const Signup = () => {
                                         name: data.name,
                                         email: data.email,
                                         uid: result.user?.uid,
+                                        photoURL: result.user?.photoURL,
                                         type: data.userType
                                     }
                                     fetch(`${process.env.REACT_APP_server_api}addusers`, {
@@ -165,7 +167,7 @@ const Signup = () => {
                                 </label>
                                 <div className='flex gap-4' >
                                     <div className='flex items-center gap-1'>
-                                        <input type="radio" name="radio-1" className="radio" {...register("userType", { required: "User type is required" })} value="Buyer" />
+                                        <input type="radio" name="radio-1" className="radio" {...register("userType", { required: "User type is required" })} value="Buyer" checked/>
                                         <span>Buyer</span>
                                     </div>
                                     <div className='flex items-center gap-1'>

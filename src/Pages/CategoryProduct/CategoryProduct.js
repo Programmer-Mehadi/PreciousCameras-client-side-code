@@ -31,7 +31,7 @@ const CategoryProduct = () => {
         }
 
     }, [products])
-
+    console.log(products)
     const handleBooking = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -120,7 +120,8 @@ const CategoryProduct = () => {
                                 <h2 className="card-title text-primary">
                                     {product.name}
                                 </h2>
-                                <p className="text-xl font-semibold flex items-center">{product.userName}
+                                <p className="text-xl font-semibold flex items-center mb-3">
+                                 <img className="w-12 h-12 mr-1 rounded-[50%]" src={product.photoURL} alt="" />   {product.userName}
                                     {product.verify === true && <FaCheckCircle className="text-blue-600 text-xl ml-1" />}
                                 </p>
                                 <p>Published: {product.date}</p>
@@ -136,6 +137,10 @@ const CategoryProduct = () => {
                                     <div className="grid grid-cols-2 ">
                                         <p className="border-2">Purchase Year : </p>
                                         <p className="border-2 border-l-0">{product.purchaseYear}</p>
+                                    </div>
+                                    <div className="grid grid-cols-2 ">
+                                        <p className="border-2">Years of use : </p>
+                                        <p className="border-2 border-l-0">{product.usedYear}</p>
                                     </div>
 
                                     <div className="grid grid-cols-2 ">

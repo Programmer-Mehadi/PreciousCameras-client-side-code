@@ -64,6 +64,7 @@ const AllSellers = () => {
                         <thead className='rounded-none'>
                             <tr>
                                 <th></th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Type</th>
@@ -77,6 +78,7 @@ const AllSellers = () => {
                                 sellers.map((seller, i) =>
                                     <tr key={seller._id}>
                                         <th>{i + 1}</th>
+                                        <td><img className='h-12 w-12 border-2 border-blue-500 rounded-[50%]' src={seller.photoURL}  alt="" /></td>
                                         <td>{seller.name}</td>
                                         <td>{seller.email}</td>
                                         <td>{seller.type}</td>

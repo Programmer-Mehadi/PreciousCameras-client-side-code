@@ -22,6 +22,8 @@ const Login = () => {
                 const userData = {
                     name: result?.user?.displayName,
                     email: result?.user?.email,
+                    uid: result.user?.uid,
+                    photoURL: result.user?.photoURL,
                     type: "Buyer"
                 }
                 fetch(`${process.env.REACT_APP_server_api}addusers`, {
@@ -53,7 +55,9 @@ const Login = () => {
             .then((result) => {
                 const userData = {
                     name: result?.user?.displayName,
+                    uid: result.user?.uid,
                     email: result?.user?.email,
+                    photoURL: result.user?.photoURL,
                     type: "Buyer"
                 }
                 fetch(`${process.env.REACT_APP_server_api}addusers`, {
