@@ -1,6 +1,15 @@
 # PreciousCameras Website
 # Live-link: https://preciouscameras.web.app/
 
+adminEmail: admin@gmail.com
+adminPassword: 123456
+
+buyerEmail: buyer@gmail.com
+buyerPassword: 123456
+
+sellerEmail: ammena@gmail.com
+sellerPassword: 123456
+
 #  Features:
 - User can login by Email,password and google signin.
 - Two types of user (Buyer and Seller)
