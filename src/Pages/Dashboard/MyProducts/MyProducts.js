@@ -68,7 +68,7 @@ const MyProducts = () => {
                                 <tr>
                                     <th></th>
                                     <th>Image</th>
-                                    <th >Title</th>
+                                    <th>Title</th>
                                     <th>Price { }</th>
                                     <th>Advertise</th>
                                     <th>Delete</th>
@@ -82,9 +82,7 @@ const MyProducts = () => {
                                             <td> <img src={product?.image} className="border h-16" alt="" /></td>
                                             <td >{product?.name}</td>
                                             <td>{product?.resalePrice}tk</td>
-                                            {
-                                                product?.salesStatus === 'available' ? <td>Available</td> : <td>Sold</td>
-                                            }
+                                             
                                             {
                                                 product?.salesStatus === 'available' && product?.advertise === 'no' &&
                                                 <td>

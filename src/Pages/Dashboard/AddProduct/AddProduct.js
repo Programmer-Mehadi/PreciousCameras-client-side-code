@@ -70,6 +70,11 @@ const AddProduct = () => {
                                 toast.success('Product added successfully!')
                                 navigate('/dashboard/myproducts')
                             }
+                            else {
+                                if (data?.ownStatus) {
+                                    toast.error(data?.ownStatus)
+                                }
+                            }
                         })
                 }
             })
