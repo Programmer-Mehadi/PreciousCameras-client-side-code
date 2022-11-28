@@ -2,13 +2,45 @@ import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
 import { FaShoppingCart } from "@react-icons/all-files/fa/FaShoppingCart";
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import useValidation from "../../Hooks/useValidation";
 
 
 const CategoryProduct = () => {
-    const { user, logOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext);
+    const [userType, setUserType] = useState(null);
+    const navigate = useNavigate()
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_server_api}checkusertype/${user?.email}`, {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `barer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data?.status === "Forbidden" || data?.status === "unauthorized access" || data?.ownStatus === 'not found') {
+                    logOut()
+                        .then(res => {
+                            toast.success('Logout successfully!');
+                            return navigate('/login');
+                        })
+                        .then(error => console.log(error))
+                }
+                if (data.isAdmin === true || data.isAdmin === 'true') {
+                    setUserType('admin')
+                }
+                else if (data?.type === 'Buyer') {
+                    setUserType('buyer')
+                }
+                else if (data?.type === 'Seller') {
+                    setUserType('seller')
+                }
+            })
+
+    }, [user])
     const products = useLoaderData();
     const [isValidate] = useValidation(user?.email);
     const [categoryName, setCategoryName] = useState('')
@@ -120,7 +152,7 @@ const CategoryProduct = () => {
                                     {product.name}
                                 </h2>
                                 <p className="text-xl font-semibold flex items-center mb-3">
-                                 <img className="w-12 h-12 mr-1 rounded-[50%]" src={product.photoURL} alt="" />   {product.userName}
+                                    <img className="w-12 h-12 mr-1 rounded-[50%]" src={product.photoURL} alt="" />   {product.userName}
                                     {product.verify === true && <FaCheckCircle className="text-blue-600 text-xl ml-1" />}
                                 </p>
                                 <p>Published: {product.date}</p>
@@ -163,12 +195,16 @@ const CategoryProduct = () => {
 
                                 </div>
 
-                                <div className="card-actions justify-center">
-                                    <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
-                                </div>
-                                <div className="card-actions justify-center">
-                                    <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
-                                </div>
+                                {
+                                    userType && userType === 'buyer' && <>
+                                        <div className="card-actions justify-center">
+                                            <label onClick={() => setBookingProduct(product)} htmlFor="my-modal-3" className="btn btn-primary w-full rounded-3xl font-bold">Book now<FaShoppingCart className='ml-2 text-md' /></label>
+                                        </div>
+                                        <div className="card-actions justify-center">
+                                            <label onClick={() => reportProduct(product)} className="btn hover:bg-red-300 bg-red-400 text-red-700 w-full rounded-3xl font-bold">Report to admin </label>
+                                        </div>
+                                    </>
+                                }
                             </div>
                         </div>
                     )
