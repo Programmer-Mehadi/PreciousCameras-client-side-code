@@ -83,7 +83,8 @@ const AllSellers = () => {
                                         <td>{seller.email}</td>
                                         <td>{seller.type}</td>
                                         <td>{
-                                            !seller.verify && <button onClick={() => verifyUser(seller._id)} className='btn hover:bg-green-400 outline-green-300 btn-sm bg-green-300 text-green-800'>Verify</button>
+                                            !seller.verify ? <button onClick={() => verifyUser(seller._id)} className='btn hover:bg-green-400 outline-green-300 btn-sm bg-green-300 text-green-800'>Verify</button>
+                                        : <p className='text-green-500 text-base'>Verified</p>
                                         }</td>
                                         <td><button onClick={() => deleteUser(seller._id)} className='btn hover:bg-red-400 outline-red-300 btn-sm bg-red-300 text-red-800'>Delete</button></td>
                                     </tr>
