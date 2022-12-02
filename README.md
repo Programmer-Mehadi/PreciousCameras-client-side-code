@@ -1,6 +1,8 @@
 # PreciousCameras Website
 # Live-link: https://preciouscameras.web.app/
 
+Server-side-code link : https://github.com/Programmer-Mehadi/PreciousCameras-server-side-code
+
 adminEmail: admin@gmail.com
 adminPassword: 123456
 
